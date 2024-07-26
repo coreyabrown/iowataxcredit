@@ -84,6 +84,7 @@ const createWindow = async () => {
 
   // Set Window Options
   mainWindow.setMenuBarVisibility(false)
+  mainWindow.maximize()
 
   mainWindow.loadURL(resolveHtmlPath('index.html'));
 
