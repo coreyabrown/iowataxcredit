@@ -78,8 +78,12 @@ const createWindow = async () => {
       preload: app.isPackaged
         ? path.join(__dirname, 'preload.js')
         : path.join(__dirname, '../../.erb/dll/preload.js'),
+        devTools: false
     },
   });
+
+  // Set Window Options
+  mainWindow.setMenuBarVisibility(false)
 
   mainWindow.loadURL(resolveHtmlPath('index.html'));
 
