@@ -1,5 +1,13 @@
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
-import { exampleRows } from '../../data/data';
+import { exampleRows, makeRows } from '../../data/data';
+
+let useRow = exampleRows;
+
+let newRows = makeRows();
+
+if (newRows.length > exampleRows.length) {
+    useRow = newRows;
+}
 
 const columns: GridColDef[] = [
     { field: 'census', headerName: 'Census Tract Code', width: 150 },
@@ -23,7 +31,7 @@ const columns: GridColDef[] = [
   export default function Grid() {
     return(
         <div style={{ height: 600, width: '80%', margin: '0 auto' }}>
-      <DataGrid rows={exampleRows} columns={columns} />
+      <DataGrid rows={useRow} columns={columns} />
       </div>
     )
   }
