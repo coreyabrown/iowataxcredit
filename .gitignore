@@ -21,9 +21,12 @@ node_modules
 release/app/dist
 release/build
 .erb/dll
+iowataxcreditprogram-mas-x64
 
 .idea
 npm-debug.log.*
 *.css.d.ts
 *.sass.d.ts
 *.scss.d.ts
+
+out/

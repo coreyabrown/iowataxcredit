@@ -1,0 +1,6 @@
+To run package creator for MacOS, open Powershell as admin, then run -- NOTE THESE DO NOT WORK:
+
+npx electron-packager . --overwrite --platform=darwin --arch=x64
+
+npx electron-packager . --overwrite --platform=mas --arch=x64
+

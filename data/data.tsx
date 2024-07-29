@@ -2,7 +2,6 @@ import { GridRowsProp } from '@mui/x-data-grid'
 
 const pdfjs = require('pdfjs-dist')
 
-let ident: number = 0;
 export function makeRows() {
   let rows = []
   let censusTracts = {
