@@ -10,9 +10,13 @@ export default function FileUpload() {
           return;
         }
         const file = e.target.files[0];
-        const { name } = file;
-        if (name != undefined) {
+        
+        if (file != undefined) {
+            const { name } = file;
             setFilename(name);
+            console.log(file.path)
+        } else {
+          setFilename('No File Selected.')
         }
     }
 
