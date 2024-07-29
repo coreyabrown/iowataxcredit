@@ -1,6 +1,7 @@
 import { UploadFile } from "@mui/icons-material";
 import { ChangeEvent, useState } from "react";
 import { Button } from "@mui/material";
+import path from 'path';
 
 export default function FileUpload() {
     const [filename, setFilename] = useState("");
@@ -15,8 +16,9 @@ export default function FileUpload() {
             const { name } = file;
             setFilename(name);
             console.log(file.path)
+
         } else {
-          setFilename('No File Selected.')
+          setFilename('')
         }
     }
 
