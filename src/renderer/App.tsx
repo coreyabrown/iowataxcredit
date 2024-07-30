@@ -4,10 +4,11 @@ import * as React from 'react'
 import FileUpload from '../components/fileupload';
 import Grid from '../components/grid'
 import BoxBasic from '../components/box';
+import { Padding } from '@mui/icons-material';
 
 function Hello() {
   return (
-    <div>
+    <div className='padded'>
       <FileUpload />
       <div> &nbsp; </div>
       <Grid />

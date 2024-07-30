@@ -28,7 +28,7 @@ export default function FileUpload() {
             component="label"
             variant="outlined"
             startIcon={<UploadFile />}
-            sx={{ marginRight: "1rem", marginLeft: 22 }}
+            sx={{ marginRight: "1rem" }}
           >
             Upload Appendices PDF
             <input type="file" accept=".pdf" hidden onChange={handleFileUpload} />

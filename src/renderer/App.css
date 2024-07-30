@@ -12,7 +12,8 @@ body {
     #ffffff 129.35%
   );
   font-family: sans-serif;
-  overflow-y: hidden;
+  overflow-y: scroll;
+  overflow-x: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -53,9 +54,8 @@ a:hover {
   text-decoration: none;
 }
 
-.Hello {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 20px 0;
+.padded {
+  margin: auto;
+  width: 80%;
+  padding: 10px;
 }
