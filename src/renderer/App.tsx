@@ -6,6 +6,7 @@ import { Entrybutton, Homebutton } from '../components/navigate';
 import Grid from '../components/grid'
 import BoxBasic from '../components/box';
 import { Padding } from '@mui/icons-material';
+import { Selector } from '../components/tabletransfer'
 
 const entryRoute = "/entry"
 const homeRoute = "/"
@@ -23,8 +24,10 @@ function Display() {
 
 function Entry() {
   return (
-    <div className='padded'>
+    <div>
       <Homebutton />
+      <div> &nbsp; </div>
+      <Selector />
     </div>
   )
 }

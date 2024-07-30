@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
-import { Edit, Home } from "@mui/icons-material";
+import { Edit, Save } from "@mui/icons-material";
 
 export function Entrybutton() {
     const navigate = useNavigate();
@@ -34,10 +34,10 @@ export function Homebutton() {
             onClick={() => handleClick()}
             component="label"
             variant="outlined"
-            startIcon={<Home />}
+            startIcon={<Save />}
             sx={{ marginRight: "1rem" }}
           >
-            Home
+            Save
           </Button>
     );
 }
