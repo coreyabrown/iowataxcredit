@@ -98,6 +98,10 @@ function updateCensus(info: Array<object>) {
   }
 }
 
+export function lastUpdateDate() {
+  return jsonData.updateDate;
+}
+
 export function makeRows() {
   let rows = []
   let key: any;

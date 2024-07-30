@@ -1,4 +1,6 @@
 {
+    "updateDate": "7/30/2024",
+    
     "mqctData" : [
     {"mqct": true, "county": "Story", "tract": 5},
     {"mqct": true, "county": "Story", "tract": 7},
