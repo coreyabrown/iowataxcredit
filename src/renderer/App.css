@@ -58,4 +58,5 @@ a:hover {
   margin: auto;
   width: 80%;
   padding: 10px;
+  max-height: 800px;
 }

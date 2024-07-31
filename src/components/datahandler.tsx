@@ -134,3 +134,49 @@ export function makeRows() {
   }
 
 }
+
+export function getCityList() {
+  return jsonData.cityList;
+}
+
+export function getCountyList() {
+  return jsonData.countyList;
+}
+
+export function getCountyTractList() {
+  return jsonData.countyTractList
+}
+
+export function getmqctData() { 
+  return jsonData.mqctData
+ }
+   export function getnmqctData() { 
+  return jsonData.nmqctData
+ }
+   export function getddaData() { 
+  return jsonData.ddaData
+ }
+   export function getruralData() { 
+  return jsonData.ruralData
+ }
+   export function getunderservedData() { 
+  return jsonData.underservedData
+ }
+   export function getrentburdenData() { 
+  return jsonData.rentburdenData
+ }
+   export function getlihtcData() { 
+  return jsonData.lihtcData
+ }
+   export function getactivedevData() { 
+  return jsonData.activedevData
+ }
+   export function gethqjobsData() { 
+  return jsonData.hqjobsData
+ }
+   export function getsocialvulnData() { 
+  return jsonData.socialvulnData
+ }
+   export function getdrData() { 
+  return jsonData.drData
+ }

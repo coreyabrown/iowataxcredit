@@ -6,7 +6,7 @@ import { Entrybutton, Homebutton } from '../components/navigate';
 import Grid from '../components/grid'
 import BoxBasic from '../components/box';
 import { Padding } from '@mui/icons-material';
-import { Selector } from '../components/tabletransfer'
+import { MQCTSelector, NMQCTSelector, DDASelector, RuralSelector, UnderservedSelector, RentBurdenSelector, LIHTCZeroSelector, LIHTCOneSelector, ActiveDevSelector, HQJobsTwoSelector, HQJobsOneSelector, SocialVulnSelector, DRSelector } from '../components/tabletransfer'
 
 const entryRoute = "/entry"
 const homeRoute = "/"
@@ -24,10 +24,22 @@ function Display() {
 
 function Entry() {
   return (
-    <div>
+    <div className='padded'>
       <Homebutton />
       <div> &nbsp; </div>
-      <Selector />
+      <MQCTSelector />
+      <NMQCTSelector />
+      <DDASelector />
+      <RuralSelector />
+      <UnderservedSelector />
+      <RentBurdenSelector />
+      <LIHTCZeroSelector />
+      <LIHTCOneSelector />
+      <ActiveDevSelector />
+      <HQJobsTwoSelector />
+      <HQJobsOneSelector />
+      <SocialVulnSelector />
+      <DRSelector />
     </div>
   )
 }

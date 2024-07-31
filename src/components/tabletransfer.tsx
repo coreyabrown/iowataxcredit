@@ -1,121 +1,589 @@
 import React, { useState } from 'react';
 import { Flex, Table, Tag, Transfer } from 'antd';
 import type { GetProp, TableColumnsType, TableProps, TransferProps } from 'antd';
+import * as dataHandler from '../components/datahandler'
 
 type TransferItem = GetProp<TransferProps, 'dataSource'>[number];
 type TableRowSelection<T extends object> = TableProps<T>['rowSelection'];
 
-interface DataType {
-  key: string;
-  title: string;
-  description: string;
-  tag: string;
+// ALL LIST INTERFACES
+interface CountyList {
+    key: string;
+    county: string;
 }
 
-interface TableTransferProps extends TransferProps<TransferItem> {
-  dataSource: DataType[];
-  leftColumns: TableColumnsType<DataType>;
-  rightColumns: TableColumnsType<DataType>;
+interface CityList {
+    key: string;
+    city: string;
+}
+
+interface CountyTractList {
+    key: string;
+    census: number;
+    tract: number;
+    county: string;
+}
+
+// ALL TABLE PROPS
+interface CityTransferProps extends TransferProps<TransferItem> {
+    dataSource: CityList[];
+    leftColumns: TableColumnsType<CityList>;
+    rightColumns: TableColumnsType<CityList>;
+}
+
+interface CountyTransferProps extends TransferProps<TransferItem> {
+    dataSource: CountyList[];
+    leftColumns: TableColumnsType<CountyList>;
+    rightColumns: TableColumnsType<CountyList>;
+}
+
+interface CountyTractTransferProps extends TransferProps<TransferItem> {
+    dataSource: CountyTractList[];
+    leftColumns: TableColumnsType<CountyTractList>;
+    rightColumns: TableColumnsType<CountyTractList>;
 }
 
 // Customize Table Transfer
-const TableTransfer: React.FC<TableTransferProps> = (props) => {
-  const { leftColumns, rightColumns, ...restProps } = props;
-  return (
-    <Transfer style={{ width: '100%' }} {...restProps}>
-      {({
-        direction,
-        filteredItems,
-        onItemSelect,
-        onItemSelectAll,
-        selectedKeys: listSelectedKeys,
-        disabled: listDisabled,
-      }) => {
-        const columns = direction === 'left' ? leftColumns : rightColumns;
-        const rowSelection: TableRowSelection<TransferItem> = {
-          getCheckboxProps: () => ({ disabled: listDisabled }),
-          onChange(selectedRowKeys) {
-            onItemSelectAll(selectedRowKeys, 'replace');
-          },
-          selectedRowKeys: listSelectedKeys,
-          selections: [Table.SELECTION_ALL, Table.SELECTION_INVERT, Table.SELECTION_NONE],
-        };
+const CityTransfer: React.FC<CityTransferProps> = (props) => {
+    const { leftColumns, rightColumns, ...restProps } = props;
+    return (
+      <Transfer style={{ width: '100%' }} {...restProps}>
+        {({
+          direction,
+          filteredItems,
+          onItemSelect,
+          onItemSelectAll,
+          selectedKeys: listSelectedKeys,
+          disabled: listDisabled,
+        }) => {
+          const columns = direction === 'left' ? leftColumns : rightColumns;
+          const rowSelection: TableRowSelection<TransferItem> = {
+            getCheckboxProps: () => ({ disabled: listDisabled }),
+            onChange(selectedRowKeys) {
+              onItemSelectAll(selectedRowKeys, 'replace');
+            },
+            selectedRowKeys: listSelectedKeys,
+            selections: [Table.SELECTION_ALL, Table.SELECTION_INVERT, Table.SELECTION_NONE],
+          };
+  
+          return (
+            <Table
+              rowSelection={rowSelection}
+              columns={columns}
+              dataSource={filteredItems}
+              size="small"
+              style={{ pointerEvents: listDisabled ? 'none' : undefined }}
+              onRow={({ key, disabled: itemDisabled }) => ({
+                onClick: () => {
+                  onItemSelect(key, !listSelectedKeys.includes(key));
+                },
+              })}
+            />
+          );
+        }}
+      </Transfer>
+    );
+  };
 
-        return (
-          <Table
-            rowSelection={rowSelection}
-            columns={columns}
-            dataSource={filteredItems}
-            size="small"
-            style={{ pointerEvents: listDisabled ? 'none' : undefined }}
-            onRow={({ key, disabled: itemDisabled }) => ({
-              onClick: () => {
-                onItemSelect(key, !listSelectedKeys.includes(key));
-              },
-            })}
-          />
-        );
-      }}
-    </Transfer>
-  );
-};
+  const CountyTransfer: React.FC<CountyTransferProps> = (props) => {
+    const { leftColumns, rightColumns, ...restProps } = props;
+    return (
+      <Transfer style={{ width: '100%' }} {...restProps}>
+        {({
+          direction,
+          filteredItems,
+          onItemSelect,
+          onItemSelectAll,
+          selectedKeys: listSelectedKeys,
+          disabled: listDisabled,
+        }) => {
+          const columns = direction === 'left' ? leftColumns : rightColumns;
+          const rowSelection: TableRowSelection<TransferItem> = {
+            getCheckboxProps: () => ({ disabled: listDisabled }),
+            onChange(selectedRowKeys) {
+              onItemSelectAll(selectedRowKeys, 'replace');
+            },
+            selectedRowKeys: listSelectedKeys,
+            selections: [Table.SELECTION_ALL, Table.SELECTION_INVERT, Table.SELECTION_NONE],
+          };
+  
+          return (
+            <Table
+              rowSelection={rowSelection}
+              columns={columns}
+              dataSource={filteredItems}
+              size="small"
+              style={{ pointerEvents: listDisabled ? 'none' : undefined }}
+              onRow={({ key, disabled: itemDisabled }) => ({
+                onClick: () => {
+                  onItemSelect(key, !listSelectedKeys.includes(key));
+                },
+              })}
+            />
+          );
+        }}
+      </Transfer>
+    );
+  };
 
-const mockTags = ['cat', 'dog', 'bird'];
+  const CountyTractTransfer: React.FC<CountyTractTransferProps> = (props) => {
+    const { leftColumns, rightColumns, ...restProps } = props;
+    return (
+      <Transfer style={{ width: '100%' }} {...restProps}>
+        {({
+          direction,
+          filteredItems,
+          onItemSelect,
+          onItemSelectAll,
+          selectedKeys: listSelectedKeys,
+          disabled: listDisabled,
+        }) => {
+          const columns = direction === 'left' ? leftColumns : rightColumns;
+          const rowSelection: TableRowSelection<TransferItem> = {
+            getCheckboxProps: () => ({ disabled: listDisabled }),
+            onChange(selectedRowKeys) {
+              onItemSelectAll(selectedRowKeys, 'replace');
+            },
+            selectedRowKeys: listSelectedKeys,
+            selections: [Table.SELECTION_ALL, Table.SELECTION_INVERT, Table.SELECTION_NONE],
+          };
+  
+          return (
+            <Table
+              rowSelection={rowSelection}
+              columns={columns}
+              dataSource={filteredItems}
+              size="small"
+              style={{ pointerEvents: listDisabled ? 'none' : undefined }}
+              onRow={({ key, disabled: itemDisabled }) => ({
+                onClick: () => {
+                  onItemSelect(key, !listSelectedKeys.includes(key));
+                },
+              })}
+            />
+          );
+        }}
+      </Transfer>
+    );
+  };
 
-const mockData = Array.from({ length: 20 }).map<DataType>((_, i) => ({
-  key: i.toString(),
-  title: `content${i + 1}`,
-  description: `description of content${i + 1}`,
-  tag: mockTags[i % 3],
-}));
+const CityListData = dataHandler.getCityList();
 
-const columns: TableColumnsType<DataType> = [
-  {
-    dataIndex: 'title',
-    title: 'Name',
-  },
-  {
-    dataIndex: 'tag',
-    title: 'Tag',
-    render: (tag: string) => (
-      <Tag style={{ marginInlineEnd: 0 }} color="cyan">
-        {tag.toUpperCase()}
-      </Tag>
-    ),
-  },
-  {
-    dataIndex: 'description',
-    title: 'Description',
-  },
+const CountyListData = dataHandler.getCountyList();
+
+const CountyTractListData = dataHandler.getCountyTractList();
+
+// DEFINE COLUMNS
+const cityColumns: TableColumnsType<CityList> = [
+    {
+      dataIndex: 'city',
+      title: 'City',
+    }
+  ];
+
+const countyColumns: TableColumnsType<CountyList> = [
+    {
+        dataIndex: 'county',
+        title: 'County',
+    }
 ];
 
-const filterOption = (input: string, item: DataType) =>
-  item.title?.includes(input) || item.tag?.includes(input);
+const countyTractColumns: TableColumnsType<CountyTractList> = [
+    {
+        dataIndex: 'census',
+        title: 'Census Tract'
+    },
+    {
+        dataIndex: 'tract',
+        title: 'Name'
+    },
+    {
+        dataIndex: 'county',
+        title: 'County'
+    }
+]
+
+// FILTER OPTIONS
+const cityFilterOption = (input: string, item: CityList) =>
+    item.city.toLowerCase()?.includes(input.toLowerCase());
+
+const countyFilterOption = (input: string, item: CountyList) =>
+    item.county.toLowerCase()?.includes(input.toLowerCase());
+
+const countyTractFilterOption = (input: string, item: CountyTractList) =>
+    item.census.toString()?.includes(input) || item.tract.toString()?.includes(input) || item.county.toLowerCase()?.includes(input.toLowerCase());
 
 // EXPORT TRANSFERS
-
-export const Selector: React.FC = () => {
+export const MQCTSelector: React.FC = () => {
   const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>([]);
   const [disabled, setDisabled] = useState(false);
 
-  const onChange: TableTransferProps['onChange'] = (nextTargetKeys) => {
+  const onChange: CountyTractTransferProps['onChange'] = (nextTargetKeys) => {
     setTargetKeys(nextTargetKeys);
   };
 
 
   return (
     <div>
-    <h1>Title</h1>
+    <h2>MQCT ➡️ Included</h2>
     <Flex align="start" gap="middle" vertical>
-      <TableTransfer
-        dataSource={mockData}
+      <CountyTractTransfer
+        dataSource={CountyTractListData}
         targetKeys={targetKeys}
         showSearch
         showSelectAll={false}
         onChange={onChange}
-        filterOption={filterOption}
-        leftColumns={columns}
-        rightColumns={columns}
+        filterOption={countyTractFilterOption}
+        leftColumns={countyTractColumns}
+        rightColumns={countyTractColumns}
+      />
+
+    </Flex>
+    </div>
+  );
+};
+
+export const NMQCTSelector: React.FC = () => {
+  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>([]);
+  const [disabled, setDisabled] = useState(false);
+
+  const onChange: CountyTractTransferProps['onChange'] = (nextTargetKeys) => {
+    setTargetKeys(nextTargetKeys);
+  };
+
+
+  return (
+    <div>
+    <h2>NMQCT ➡️ Included</h2>
+    <Flex align="start" gap="middle" vertical>
+      <CountyTractTransfer
+        dataSource={CountyTractListData}
+        targetKeys={targetKeys}
+        showSearch
+        showSelectAll={false}
+        onChange={onChange}
+        filterOption={countyTractFilterOption}
+        leftColumns={countyTractColumns}
+        rightColumns={countyTractColumns}
+      />
+
+    </Flex>
+    </div>
+  );
+};
+
+export const DDASelector: React.FC = () => {
+  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>([]);
+  const [disabled, setDisabled] = useState(false);
+
+  const onChange: CountyTractTransferProps['onChange'] = (nextTargetKeys) => {
+    setTargetKeys(nextTargetKeys);
+  };
+
+
+  return (
+    <div>
+    <h2>DDA ➡️ Included</h2>
+    <Flex align="start" gap="middle" vertical>
+      <CountyTractTransfer
+        dataSource={CountyTractListData}
+        targetKeys={targetKeys}
+        showSearch
+        showSelectAll={false}
+        onChange={onChange}
+        filterOption={countyTractFilterOption}
+        leftColumns={countyTractColumns}
+        rightColumns={countyTractColumns}
+      />
+
+    </Flex>
+    </div>
+  );
+};
+
+export const RuralSelector: React.FC = () => {
+  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>([]);
+  const [disabled, setDisabled] = useState(false);
+
+  const onChange: CountyTransferProps['onChange'] = (nextTargetKeys) => {
+    setTargetKeys(nextTargetKeys);
+  };
+
+
+  return (
+    <div>
+    <h2>Rural ➡️ Not Rural</h2>
+    <Flex align="start" gap="middle" vertical>
+      <CountyTransfer
+        dataSource={CountyListData}
+        targetKeys={targetKeys}
+        showSearch
+        showSelectAll={false}
+        onChange={onChange}
+        filterOption={countyFilterOption}
+        leftColumns={countyColumns}
+        rightColumns={countyColumns}
+      />
+
+    </Flex>
+    </div>
+  );
+};
+
+export const UnderservedSelector: React.FC = () => {
+    const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>([]);
+    const [disabled, setDisabled] = useState(false);
+  
+    const onChange: CityTransferProps['onChange'] = (nextTargetKeys) => {
+      setTargetKeys(nextTargetKeys);
+    };
+  
+  
+    return (
+      <div>
+      <h2>Underserved ➡️ NOT Included</h2>
+      <Flex align="start" gap="middle" vertical>
+        <CityTransfer
+          dataSource={CityListData}
+          targetKeys={targetKeys}
+          showSearch
+          showSelectAll={false}
+          onChange={onChange}
+          filterOption={cityFilterOption}
+          leftColumns={cityColumns}
+          rightColumns={cityColumns}
+        />
+  
+      </Flex>
+      </div>
+    );
+};
+
+export const RentBurdenSelector: React.FC = () => {
+  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>([]);
+  const [disabled, setDisabled] = useState(false);
+
+  const onChange: CityTransferProps['onChange'] = (nextTargetKeys) => {
+    setTargetKeys(nextTargetKeys);
+  };
+
+
+  return (
+    <div>
+    <h2>Rent Burdened ➡️ Included</h2>
+    <Flex align="start" gap="middle" vertical>
+      <CityTransfer
+        dataSource={CityListData}
+        targetKeys={targetKeys}
+        showSearch
+        showSelectAll={false}
+        onChange={onChange}
+        filterOption={cityFilterOption}
+        leftColumns={cityColumns}
+        rightColumns={cityColumns}
+      />
+
+    </Flex>
+    </div>
+  );
+};
+
+export const LIHTCZeroSelector: React.FC = () => {
+  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>([]);
+  const [disabled, setDisabled] = useState(false);
+
+  const onChange: CountyTractTransferProps['onChange'] = (nextTargetKeys) => {
+    setTargetKeys(nextTargetKeys);
+  };
+
+
+  return (
+    <div>
+    <h2>LIHTC ➡️ 0 Points</h2>
+    <Flex align="start" gap="middle" vertical>
+      <CountyTractTransfer
+        dataSource={CountyTractListData}
+        targetKeys={targetKeys}
+        showSearch
+        showSelectAll={false}
+        onChange={onChange}
+        filterOption={countyTractFilterOption}
+        leftColumns={countyTractColumns}
+        rightColumns={countyTractColumns}
+      />
+
+    </Flex>
+    </div>
+  );
+};
+
+export const LIHTCOneSelector: React.FC = () => {
+  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>([]);
+  const [disabled, setDisabled] = useState(false);
+
+  const onChange: CountyTractTransferProps['onChange'] = (nextTargetKeys) => {
+    setTargetKeys(nextTargetKeys);
+  };
+
+
+  return (
+    <div>
+    <h2>LIHTC ➡️ One Point</h2>
+    <Flex align="start" gap="middle" vertical>
+      <CountyTractTransfer
+        dataSource={CountyTractListData}
+        targetKeys={targetKeys}
+        showSearch
+        showSelectAll={false}
+        onChange={onChange}
+        filterOption={countyTractFilterOption}
+        leftColumns={countyTractColumns}
+        rightColumns={countyTractColumns}
+      />
+
+    </Flex>
+    </div>
+  );
+};
+
+export const ActiveDevSelector: React.FC = () => {
+  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>([]);
+  const [disabled, setDisabled] = useState(false);
+
+  const onChange: CityTransferProps['onChange'] = (nextTargetKeys) => {
+    setTargetKeys(nextTargetKeys);
+  };
+
+
+  return (
+    <div>
+    <h2>Active Development ➡️ Included</h2>
+    <Flex align="start" gap="middle" vertical>
+      <CityTransfer
+        dataSource={CityListData}
+        targetKeys={targetKeys}
+        showSearch
+        showSelectAll={false}
+        onChange={onChange}
+        filterOption={cityFilterOption}
+        leftColumns={cityColumns}
+        rightColumns={cityColumns}
+      />
+
+    </Flex>
+    </div>
+  );
+};
+
+export const HQJobsTwoSelector: React.FC = () => {
+  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>([]);
+  const [disabled, setDisabled] = useState(false);
+
+  const onChange: CityTransferProps['onChange'] = (nextTargetKeys) => {
+    setTargetKeys(nextTargetKeys);
+  };
+
+
+  return (
+    <div>
+    <h2>High Quality Jobs ➡️ 2 Points</h2>
+    <Flex align="start" gap="middle" vertical>
+      <CityTransfer
+        dataSource={CityListData}
+        targetKeys={targetKeys}
+        showSearch
+        showSelectAll={false}
+        onChange={onChange}
+        filterOption={cityFilterOption}
+        leftColumns={cityColumns}
+        rightColumns={cityColumns}
+      />
+
+    </Flex>
+    </div>
+  );
+};
+
+export const HQJobsOneSelector: React.FC = () => {
+  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>([]);
+  const [disabled, setDisabled] = useState(false);
+
+  const onChange: CityTransferProps['onChange'] = (nextTargetKeys) => {
+    setTargetKeys(nextTargetKeys);
+  };
+
+
+  return (
+    <div>
+    <h2>High Quality Jobs ➡️ 1 Point</h2>
+    <Flex align="start" gap="middle" vertical>
+      <CityTransfer
+        dataSource={CityListData}
+        targetKeys={targetKeys}
+        showSearch
+        showSelectAll={false}
+        onChange={onChange}
+        filterOption={cityFilterOption}
+        leftColumns={cityColumns}
+        rightColumns={cityColumns}
+      />
+
+    </Flex>
+    </div>
+  );
+};
+
+export const SocialVulnSelector: React.FC = () => {
+    const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>([]);
+    const [disabled, setDisabled] = useState(false);
+  
+    const onChange: CountyTransferProps['onChange'] = (nextTargetKeys) => {
+      setTargetKeys(nextTargetKeys);
+    };
+  
+  
+    return (
+      <div>
+      <h2>Social Vulnerability ➡️ Included</h2>
+      <Flex align="start" gap="middle" vertical>
+        <CountyTransfer
+          dataSource={CountyListData}
+          targetKeys={targetKeys}
+          showSearch
+          showSelectAll={false}
+          onChange={onChange}
+          filterOption={countyFilterOption}
+          leftColumns={countyColumns}
+          rightColumns={countyColumns}
+        />
+  
+      </Flex>
+      </div>
+    );
+};
+
+export const DRSelector: React.FC = () => {
+  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>([]);
+  const [disabled, setDisabled] = useState(false);
+
+  const onChange: CountyTransferProps['onChange'] = (nextTargetKeys) => {
+    setTargetKeys(nextTargetKeys);
+  };
+
+
+  return (
+    <div>
+    <h2>Disaster Recovery ➡️ 2 Points</h2>
+    <Flex align="start" gap="middle" vertical>
+      <CountyTransfer
+        dataSource={CountyListData}
+        targetKeys={targetKeys}
+        showSearch
+        showSelectAll={false}
+        onChange={onChange}
+        filterOption={countyFilterOption}
+        leftColumns={countyColumns}
+        rightColumns={countyColumns}
       />
 
     </Flex>
