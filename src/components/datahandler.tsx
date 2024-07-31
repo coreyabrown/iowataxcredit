@@ -150,33 +150,33 @@ export function getCountyTractList() {
 export function getmqctData() { 
   return jsonData.mqctData
  }
-   export function getnmqctData() { 
+export function getnmqctData() { 
   return jsonData.nmqctData
  }
-   export function getddaData() { 
+export function getddaData() { 
   return jsonData.ddaData
  }
-   export function getruralData() { 
+export function getruralData() { 
   return jsonData.ruralData
  }
-   export function getunderservedData() { 
+export function getunderservedData() { 
   return jsonData.underservedData
  }
-   export function getrentburdenData() { 
+export function getrentburdenData() { 
   return jsonData.rentburdenData
  }
-   export function getlihtcData() { 
+export function getlihtcData() { 
   return jsonData.lihtcData
  }
-   export function getactivedevData() { 
+export function getactivedevData() { 
   return jsonData.activedevData
  }
-   export function gethqjobsData() { 
+export function gethqjobsData() { 
   return jsonData.hqjobsData
  }
-   export function getsocialvulnData() { 
+export function getsocialvulnData() { 
   return jsonData.socialvulnData
  }
-   export function getdrData() { 
+export function getdrData() { 
   return jsonData.drData
  }

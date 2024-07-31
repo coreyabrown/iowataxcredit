@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Flex, Table, Tag, Transfer } from 'antd';
 import type { GetProp, TableColumnsType, TableProps, TransferProps } from 'antd';
 import * as dataHandler from '../components/datahandler'
+import Divider from '@mui/material/Divider'
 
 type TransferItem = GetProp<TransferProps, 'dataSource'>[number];
 type TableRowSelection<T extends object> = TableProps<T>['rowSelection'];
@@ -173,6 +174,84 @@ const CountyListData = dataHandler.getCountyList();
 
 const CountyTractListData = dataHandler.getCountyTractList();
 
+function getSelectedCities(dataStruct: any) {
+  var selectedCities: Array<any> = [];
+
+  dataStruct.forEach(function (item: any) {
+    var cityName = item.city;
+    CityListData.forEach(function (item: any) {
+      if (item.city == cityName) {
+        selectedCities.push(item.key);
+      }
+    })
+  })
+  return selectedCities as React.Key[];
+}
+
+function getSelectedCounties(dataStruct: any) {
+  var selectedCounties: Array<any> = [];
+
+  dataStruct.forEach(function (item: any) {
+    var countyName = item.county;
+    CountyListData.forEach(function (item: any) {
+      if (item.county == countyName) {
+        selectedCounties.push(item.key);
+      }
+    })
+  })
+  return selectedCounties as React.Key[];
+}
+
+function getSelectedCountyTracts(dataStruct: any) {
+  var selectedCountyTracts: Array<any> = [];
+
+  dataStruct.forEach(function (item: any) {
+    var countyName = item.county;
+    var tractName = item.tract
+    CountyTractListData.forEach(function (item: any) {
+      if (item.county == countyName && item.tract == tractName)  {
+        selectedCountyTracts.push(item.key);
+      }
+    })
+  })
+  return selectedCountyTracts as React.Key[];
+}
+
+function getSelectedLIHTC(dataStruct: any, points: number) {
+  var selectedCountyTracts: Array<any> = [];
+
+  dataStruct.forEach(function (item: any) {
+    var countyName = item.county;
+    var tractName = item.tract;
+    var pointVal = item.lihtc;
+    if (pointVal == points) {
+      CountyTractListData.forEach(function (item: any) {
+        if (item.county == countyName && item.tract == tractName )  {
+          selectedCountyTracts.push(item.key);
+        }
+      })
+    }
+  })
+  return selectedCountyTracts as React.Key[];
+}
+
+function getSelectedHQJobs(dataStruct: any, points: number) {
+  var selectedCities: Array<any> = [];
+
+  dataStruct.forEach(function (item: any) {
+    var cityName = item.city;
+    var pointVal = item.hqjobs;
+    if (pointVal == points) {
+      CityListData.forEach(function (item: any) {
+        if (item.city == cityName) {
+          selectedCities.push(item.key);
+        }
+      })
+    }
+  })
+  return selectedCities as React.Key[];
+}
+
 // DEFINE COLUMNS
 const cityColumns: TableColumnsType<CityList> = [
     {
@@ -215,13 +294,16 @@ const countyTractFilterOption = (input: string, item: CountyTractList) =>
 
 // EXPORT TRANSFERS
 export const MQCTSelector: React.FC = () => {
-  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>([]);
+  const initialTargets = getSelectedCountyTracts(dataHandler.getmqctData());
+  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>(initialTargets);
   const [disabled, setDisabled] = useState(false);
 
   const onChange: CountyTractTransferProps['onChange'] = (nextTargetKeys) => {
     setTargetKeys(nextTargetKeys);
   };
 
+  //DO SAVE ACTION HERE
+  console.log(targetKeys);
 
   return (
     <div>
@@ -239,12 +321,15 @@ export const MQCTSelector: React.FC = () => {
       />
 
     </Flex>
+    <div>&nbsp;</div>
+    <Divider />
     </div>
   );
 };
 
 export const NMQCTSelector: React.FC = () => {
-  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>([]);
+  const initialTargets = getSelectedCountyTracts(dataHandler.getnmqctData());
+  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>(initialTargets);
   const [disabled, setDisabled] = useState(false);
 
   const onChange: CountyTractTransferProps['onChange'] = (nextTargetKeys) => {
@@ -268,12 +353,15 @@ export const NMQCTSelector: React.FC = () => {
       />
 
     </Flex>
+    <div>&nbsp;</div>
+    <Divider />
     </div>
   );
 };
 
 export const DDASelector: React.FC = () => {
-  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>([]);
+  const initialTargets = getSelectedCountyTracts(dataHandler.getddaData());
+  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>(initialTargets);
   const [disabled, setDisabled] = useState(false);
 
   const onChange: CountyTractTransferProps['onChange'] = (nextTargetKeys) => {
@@ -297,12 +385,15 @@ export const DDASelector: React.FC = () => {
       />
 
     </Flex>
+    <div>&nbsp;</div>
+    <Divider />
     </div>
   );
 };
 
 export const RuralSelector: React.FC = () => {
-  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>([]);
+  const initialTargets = getSelectedCounties(dataHandler.getruralData());
+  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>(initialTargets);
   const [disabled, setDisabled] = useState(false);
 
   const onChange: CountyTransferProps['onChange'] = (nextTargetKeys) => {
@@ -326,12 +417,15 @@ export const RuralSelector: React.FC = () => {
       />
 
     </Flex>
+    <div>&nbsp;</div>
+    <Divider />
     </div>
   );
 };
 
 export const UnderservedSelector: React.FC = () => {
-    const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>([]);
+    const initialTargets = getSelectedCities(dataHandler.getunderservedData());
+    const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>(initialTargets);
     const [disabled, setDisabled] = useState(false);
   
     const onChange: CityTransferProps['onChange'] = (nextTargetKeys) => {
@@ -355,12 +449,15 @@ export const UnderservedSelector: React.FC = () => {
         />
   
       </Flex>
+      <div>&nbsp;</div>
+      <Divider />
       </div>
     );
 };
 
 export const RentBurdenSelector: React.FC = () => {
-  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>([]);
+  const initialTargets = getSelectedCities(dataHandler.getrentburdenData());
+  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>(initialTargets);
   const [disabled, setDisabled] = useState(false);
 
   const onChange: CityTransferProps['onChange'] = (nextTargetKeys) => {
@@ -384,12 +481,15 @@ export const RentBurdenSelector: React.FC = () => {
       />
 
     </Flex>
+    <div>&nbsp;</div>
+    <Divider />
     </div>
   );
 };
 
 export const LIHTCZeroSelector: React.FC = () => {
-  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>([]);
+  const initialTargets = getSelectedLIHTC(dataHandler.getlihtcData(), 0);
+  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>(initialTargets);
   const [disabled, setDisabled] = useState(false);
 
   const onChange: CountyTractTransferProps['onChange'] = (nextTargetKeys) => {
@@ -399,7 +499,7 @@ export const LIHTCZeroSelector: React.FC = () => {
 
   return (
     <div>
-    <h2>LIHTC ➡️ 0 Points</h2>
+    <h2>LIHTC ➡️ Zero Points</h2>
     <Flex align="start" gap="middle" vertical>
       <CountyTractTransfer
         dataSource={CountyTractListData}
@@ -413,12 +513,15 @@ export const LIHTCZeroSelector: React.FC = () => {
       />
 
     </Flex>
+    <div>&nbsp;</div>
+    <Divider />
     </div>
   );
 };
 
 export const LIHTCOneSelector: React.FC = () => {
-  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>([]);
+  const initialTargets = getSelectedLIHTC(dataHandler.getlihtcData(), 1);
+  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>(initialTargets);
   const [disabled, setDisabled] = useState(false);
 
   const onChange: CountyTractTransferProps['onChange'] = (nextTargetKeys) => {
@@ -442,12 +545,15 @@ export const LIHTCOneSelector: React.FC = () => {
       />
 
     </Flex>
+    <div>&nbsp;</div>
+    <Divider />
     </div>
   );
 };
 
 export const ActiveDevSelector: React.FC = () => {
-  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>([]);
+  const initialTargets = getSelectedCities(dataHandler.getactivedevData());
+  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>(initialTargets);
   const [disabled, setDisabled] = useState(false);
 
   const onChange: CityTransferProps['onChange'] = (nextTargetKeys) => {
@@ -471,12 +577,15 @@ export const ActiveDevSelector: React.FC = () => {
       />
 
     </Flex>
+    <div>&nbsp;</div>
+    <Divider />
     </div>
   );
 };
 
 export const HQJobsTwoSelector: React.FC = () => {
-  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>([]);
+  const initialTargets = getSelectedHQJobs(dataHandler.gethqjobsData(), 2);
+  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>(initialTargets);
   const [disabled, setDisabled] = useState(false);
 
   const onChange: CityTransferProps['onChange'] = (nextTargetKeys) => {
@@ -486,7 +595,7 @@ export const HQJobsTwoSelector: React.FC = () => {
 
   return (
     <div>
-    <h2>High Quality Jobs ➡️ 2 Points</h2>
+    <h2>High Quality Jobs ➡️ Two Points</h2>
     <Flex align="start" gap="middle" vertical>
       <CityTransfer
         dataSource={CityListData}
@@ -500,12 +609,15 @@ export const HQJobsTwoSelector: React.FC = () => {
       />
 
     </Flex>
+    <div>&nbsp;</div>
+    <Divider />
     </div>
   );
 };
 
 export const HQJobsOneSelector: React.FC = () => {
-  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>([]);
+  const initialTargets = getSelectedHQJobs(dataHandler.gethqjobsData(), 1);
+  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>(initialTargets);
   const [disabled, setDisabled] = useState(false);
 
   const onChange: CityTransferProps['onChange'] = (nextTargetKeys) => {
@@ -515,7 +627,7 @@ export const HQJobsOneSelector: React.FC = () => {
 
   return (
     <div>
-    <h2>High Quality Jobs ➡️ 1 Point</h2>
+    <h2>High Quality Jobs ➡️ One Point</h2>
     <Flex align="start" gap="middle" vertical>
       <CityTransfer
         dataSource={CityListData}
@@ -529,12 +641,15 @@ export const HQJobsOneSelector: React.FC = () => {
       />
 
     </Flex>
+    <div>&nbsp;</div>
+    <Divider />
     </div>
   );
 };
 
 export const SocialVulnSelector: React.FC = () => {
-    const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>([]);
+  const initialTargets = getSelectedCounties(dataHandler.getsocialvulnData());
+  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>(initialTargets);
     const [disabled, setDisabled] = useState(false);
   
     const onChange: CountyTransferProps['onChange'] = (nextTargetKeys) => {
@@ -558,12 +673,15 @@ export const SocialVulnSelector: React.FC = () => {
         />
   
       </Flex>
+      <div>&nbsp;</div>
+      <Divider />
       </div>
     );
 };
 
 export const DRSelector: React.FC = () => {
-  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>([]);
+  const initialTargets = getSelectedCounties(dataHandler.getdrData());
+  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>(initialTargets);
   const [disabled, setDisabled] = useState(false);
 
   const onChange: CountyTransferProps['onChange'] = (nextTargetKeys) => {
@@ -587,6 +705,8 @@ export const DRSelector: React.FC = () => {
       />
 
     </Flex>
+    <div>&nbsp;</div>
+    <Divider />
     </div>
   );
 };
