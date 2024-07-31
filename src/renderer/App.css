@@ -55,8 +55,8 @@ a:hover {
 }
 
 .padded {
-  margin: auto;
-  width: 80%;
-  padding: 10px;
-  max-height: 800px;
+  width: 80vw;
+  height: 100vh;
+  position: relative;
+  top: 50%;
 }

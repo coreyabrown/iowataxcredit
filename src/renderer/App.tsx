@@ -39,6 +39,9 @@ function Entry() {
       <HQJobsOneSelector />
       <SocialVulnSelector />
       <DRSelector />
+      <div> &nbsp; </div>
+      <Homebutton />
+      <div> &nbsp; </div>
     </div>
   )
 }

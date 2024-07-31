@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Flex, Table, Tag, Transfer } from 'antd';
+import { Flex, Table, Transfer } from 'antd';
 import type { GetProp, TableColumnsType, TableProps, TransferProps } from 'antd';
 import * as dataHandler from '../components/datahandler'
 import Divider from '@mui/material/Divider'
@@ -319,7 +319,6 @@ export const MQCTSelector: React.FC = () => {
         leftColumns={countyTractColumns}
         rightColumns={countyTractColumns}
       />
-
     </Flex>
     <div>&nbsp;</div>
     <Divider />
