@@ -22,11 +22,13 @@ if (!fs.existsSync(dataFile)){
   } catch (err) {
     console.log(err)
   }
+} else {
+  console.log("USING USER DATA");
 }
 
 
 // GET FILE
-var jsonData: any;
+export var jsonData: any;
 
 try {
   jsonData = JSON.parse(fs.readFileSync(dataFile, 'utf-8'))
@@ -55,12 +57,19 @@ type StoredDataFile = {
   countyTractList: any[],
 }
 
-export function updateData(contentJSON: any) {
-  console.log('STORE DATA HERE: ' + contentJSON.toString())
-  // Check file for all parts of type
-  // Overwrite file
-  // Refresh JSON Data
-  jsonData = JSON.parse(fs.readFileSync(dataFile, 'utf-8'))
+export function updateData(contentJSON: any, key: any) {
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  var yyyy = today.getFullYear();
+  var todayString: string = mm + '/' + dd + '/' + yyyy;
+
+  jsonData[key as keyof typeof jsonData] = contentJSON;
+  jsonData.updateDate = todayString;
+  //console.log(JSON.stringify(jsonData[key as keyof typeof jsonData]))
+  // UPDATE CENSUSTRACTS to default values of the key
+  fs.writeFileSync(dataFile, JSON.stringify(jsonData));
+  jsonData = JSON.parse(fs.readFileSync(dataFile, 'utf-8'));
 }
 
 let censusTracts : any = jsonData.censusTracts
@@ -148,6 +157,9 @@ function searchCensus(updateKey: any, updateValue: any, key1: string, value1: an
 }
 
 function updateCensus(info: Array<object>) {
+  if (info == null || info == undefined) {
+    return
+  }
   if (Object.keys(info[0]).length > 2) {
     for (let i=0; i < info.length; i++) {
       searchCensus(Object.keys(info[i])[0], Object.values(info[i])[0], Object.keys(info[i])[1], Object.values(info[i])[1], Object.keys(info[i])[2], Object.values(info[i])[2])
@@ -163,17 +175,19 @@ export function makeRows() {
   let rows = []
   let key: any;
   // UPDATE ALL POINT VALUES
-  updateCensus(jsonData.mqctData);
-  updateCensus(jsonData.nmqctData);
-  updateCensus(jsonData.ddaData);
-  updateCensus(jsonData.ruralData);
-  updateCensus(jsonData.underservedData);
-  updateCensus(jsonData.rentburdenData);
-  updateCensus(jsonData.lihtcData);
-  updateCensus(jsonData.activedevData);
-  updateCensus(jsonData.hqjobsData);
-  updateCensus(jsonData.socialvulnData);
-  updateCensus(jsonData.drData);
+  var ogData = data;
+  jsonData.censusTracts = ogData.censusTracts;
+  jsonData.mqctData.length > 0 ? updateCensus(jsonData.mqctData): console.log("mqctData empty");
+  jsonData.nmqctData.length > 0 ? updateCensus(jsonData.nmqctData): console.log("nmqctData empty");
+  jsonData.ddaData.length > 0 ? updateCensus(jsonData.ddaData): console.log("ddaData empty");
+  jsonData.ruralData.length > 0 ? updateCensus(jsonData.ruralData): console.log("ruralData empty");
+  jsonData.underservedData.length > 0 ? updateCensus(jsonData.underservedData): console.log("underservedData empty");
+  jsonData.rentburdenData.length > 0 ? updateCensus(jsonData.rentburdenData): console.log("rentburdenData empty");
+  jsonData.lihtcData.length > 0 ? updateCensus(jsonData.lihtcData): console.log("lihtcData empty");
+  jsonData.activedevData.length > 0 ? updateCensus(jsonData.activedevData): console.log("activedevData empty");
+  jsonData.hqjobsData.length > 0 ? updateCensus(jsonData.hqjobsData): console.log("hqjobsData empty");
+  jsonData.socialvulnData.length > 0 ? updateCensus(jsonData.socialvulnData): console.log("socialvulnData empty");
+  jsonData.drData.length > 0 ? updateCensus(jsonData.drData): console.log("drData empty");
   // END UPDATES
   for (key in censusTracts) {
     

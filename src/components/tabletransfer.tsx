@@ -174,6 +174,8 @@ const CountyListData = dataHandler.getCountyList();
 
 const CountyTractListData = dataHandler.getCountyTractList();
 
+// TRANSLATE VALUES TO KEYS
+
 function getSelectedCities(dataStruct: any) {
   var selectedCities: Array<any> = [];
 
@@ -252,6 +254,208 @@ function getSelectedHQJobs(dataStruct: any, points: number) {
   return selectedCities as React.Key[];
 }
 
+// TRANSLATE KEYS TO VALUES
+function setMQCT(selectedKeys: React.Key[]) {
+  var resultData: Array<any> = []
+  selectedKeys.forEach(function(item: any) {
+    var tryKey = item;
+    CountyTractListData.forEach(function(item: any) {
+      if (tryKey == item.key){
+        var countyName = item.county;
+        var tractName = item.tract;
+        var lineItem = {mqct: true, county: countyName, tract: tractName}
+        resultData.push(lineItem)
+      }
+    })
+  })
+  return resultData;
+}
+
+function setNMQCT(selectedKeys: React.Key[]) {
+  var resultData: Array<any> = []
+  selectedKeys.forEach(function(item: any) {
+    var tryKey = item;
+    CountyTractListData.forEach(function(item: any) {
+      if (tryKey == item.key){
+        var countyName = item.county;
+        var tractName = item.tract;
+        var lineItem = {nmqct: true, county: countyName, tract: tractName}
+        resultData.push(lineItem)
+      }
+    })
+  })
+  return resultData;
+}
+
+function setDDA(selectedKeys: React.Key[]) {
+  var resultData: Array<any> = []
+  selectedKeys.forEach(function(item: any) {
+    var tryKey = item;
+    CountyTractListData.forEach(function(item: any) {
+      if (tryKey == item.key){
+        var countyName = item.county;
+        var tractName = item.tract;
+        var lineItem = {dda: true, county: countyName, tract: tractName}
+        resultData.push(lineItem)
+      }
+    })
+  })
+  return resultData;
+}
+
+function setRural(selectedKeys: React.Key[]) {
+  var resultData: Array<any> = []
+  selectedKeys.forEach(function(item: any) {
+    var tryKey = item;
+    CountyListData.forEach(function(item: any) {
+      if (tryKey == item.key){
+        var countyName = item.county;
+        var lineItem = {rural: false, county: countyName}
+        resultData.push(lineItem)
+      }
+    })
+  })
+  return resultData;
+}
+
+function setUnderserved(selectedKeys: React.Key[]) {
+  var resultData: Array<any> = []
+  selectedKeys.forEach(function(item: any) {
+    var tryKey = item;
+    CityListData.forEach(function(item: any) {
+      if (tryKey == item.key){
+        var cityName = item.city;
+        var lineItem = {underserved: 0, city: cityName}
+        resultData.push(lineItem)
+      }
+    })
+  })
+  return resultData;
+}
+
+function setRentBurden(selectedKeys: React.Key[]) {
+  var resultData: Array<any> = []
+  selectedKeys.forEach(function(item: any) {
+    var tryKey = item;
+    CityListData.forEach(function(item: any) {
+      if (tryKey == item.key){
+        var cityName = item.city;
+        var lineItem = {rentburden: 1, city: cityName}
+        resultData.push(lineItem)
+      }
+    })
+  })
+  return resultData;
+}
+
+function setLIHTC(selectedKeys: React.Key[], points: number) {
+  var resultData: Array<any> = []
+  selectedKeys.forEach(function(item: any) {
+    var tryKey = item;
+    CountyTractListData.forEach(function(item: any) {
+      if (tryKey == item.key){
+        var countyName = item.county;
+        var tractName = item.tract;
+        var lineItem = {lihtc: points, county: countyName, tract: tractName}
+        resultData.push(lineItem)
+      }
+    })
+  })
+  var existingPoints = 0;
+  if (points == 0) {
+    existingPoints = 1
+  }
+  var existingKeys = getSelectedLIHTC(dataHandler.getlihtcData(), existingPoints)
+  existingKeys.forEach(function(item: any) {
+    var tryKey = item;
+    CountyTractListData.forEach(function(item: any) {
+      if (tryKey == item.key){
+        var countyName = item.county;
+        var tractName = item.tract;
+        var lineItem = {lihtc: existingPoints, county: countyName, tract: tractName}
+        resultData.push(lineItem)
+      }
+    })
+  })
+
+  return resultData;
+}
+
+function setActiveDev(selectedKeys: React.Key[]) {
+  var resultData: Array<any> = []
+  selectedKeys.forEach(function(item: any) {
+    var tryKey = item;
+    CityListData.forEach(function(item: any) {
+      if (tryKey == item.key){
+        var cityName = item.city;
+        var lineItem = {activedev: 1, city: cityName}
+        resultData.push(lineItem)
+      }
+    })
+  })
+  return resultData;
+}
+
+function setHQJobs(selectedKeys: React.Key[], points: number) {
+  var resultData: Array<any> = []
+  selectedKeys.forEach(function(item: any) {
+    var tryKey = item;
+    CityListData.forEach(function(item: any) {
+      if (tryKey == item.key){
+        var cityName = item.city;
+        var lineItem = {hqjobs: points, city: cityName}
+        resultData.push(lineItem)
+      }
+    })
+  })
+  var existingPoints = 1;
+  if (points == 1) {
+    existingPoints = 2
+  }
+  var existingKeys = getSelectedHQJobs(dataHandler.gethqjobsData(), existingPoints)
+  existingKeys.forEach(function(item: any) {
+    var tryKey = item;
+    CityListData.forEach(function(item: any) {
+      if (tryKey == item.key){
+        var cityName = item.city;
+        var lineItem = {hqjobs: existingPoints, city: cityName}
+        resultData.push(lineItem)
+      }
+    })
+  })
+  return resultData;
+}
+
+function setSocialVuln(selectedKeys: React.Key[]) {
+  var resultData: Array<any> = []
+  selectedKeys.forEach(function(item: any) {
+    var tryKey = item;
+    CountyListData.forEach(function(item: any) {
+      if (tryKey == item.key){
+        var countyName = item.county;
+        var lineItem = {socialvuln: 1, county: countyName}
+        resultData.push(lineItem)
+      }
+    })
+  })
+  return resultData;
+}
+
+function setDR(selectedKeys: React.Key[]) {
+  var resultData: Array<any> = []
+  selectedKeys.forEach(function(item: any) {
+    var tryKey = item;
+    CountyListData.forEach(function(item: any) {
+      if (tryKey == item.key){
+        var countyName = item.county;
+        var lineItem = {dr: 1, county: countyName}
+        resultData.push(lineItem)
+      }
+    })
+  })
+  return resultData;
+}
+
 // DEFINE COLUMNS
 const cityColumns: TableColumnsType<CityList> = [
     {
@@ -301,7 +505,8 @@ export const MQCTSelector: React.FC = () => {
   const onChange: CountyTractTransferProps['onChange'] = (nextTargetKeys) => {
     setTargetKeys(nextTargetKeys);
     //DO SAVE ACTION HERE
-    dataHandler.updateData(nextTargetKeys)
+    var content = setMQCT(nextTargetKeys);
+    dataHandler.updateData(content, "mqctData");
   };
 
   return (
@@ -332,6 +537,9 @@ export const NMQCTSelector: React.FC = () => {
 
   const onChange: CountyTractTransferProps['onChange'] = (nextTargetKeys) => {
     setTargetKeys(nextTargetKeys);
+    //DO SAVE ACTION HERE
+    var content = setNMQCT(nextTargetKeys);
+    dataHandler.updateData(content, "nmqctData");
   };
 
 
@@ -364,6 +572,9 @@ export const DDASelector: React.FC = () => {
 
   const onChange: CountyTractTransferProps['onChange'] = (nextTargetKeys) => {
     setTargetKeys(nextTargetKeys);
+    //DO SAVE ACTION HERE
+    var content = setDDA(nextTargetKeys);
+    dataHandler.updateData(content, "ddaData");
   };
 
 
@@ -396,6 +607,9 @@ export const RuralSelector: React.FC = () => {
 
   const onChange: CountyTransferProps['onChange'] = (nextTargetKeys) => {
     setTargetKeys(nextTargetKeys);
+    //DO SAVE ACTION HERE
+    var content = setRural(nextTargetKeys);
+    dataHandler.updateData(content, "ruralData");
   };
 
 
@@ -428,6 +642,9 @@ export const UnderservedSelector: React.FC = () => {
   
     const onChange: CityTransferProps['onChange'] = (nextTargetKeys) => {
       setTargetKeys(nextTargetKeys);
+      //DO SAVE ACTION HERE
+    var content = setUnderserved(nextTargetKeys);
+    dataHandler.updateData(content, "underservedData");
     };
   
   
@@ -460,6 +677,9 @@ export const RentBurdenSelector: React.FC = () => {
 
   const onChange: CityTransferProps['onChange'] = (nextTargetKeys) => {
     setTargetKeys(nextTargetKeys);
+    //DO SAVE ACTION HERE
+    var content = setRentBurden(nextTargetKeys);
+    dataHandler.updateData(content, "rentburdenData");
   };
 
 
@@ -492,6 +712,9 @@ export const LIHTCZeroSelector: React.FC = () => {
 
   const onChange: CountyTractTransferProps['onChange'] = (nextTargetKeys) => {
     setTargetKeys(nextTargetKeys);
+    //DO SAVE ACTION HERE
+    var content = setLIHTC(nextTargetKeys, 0);
+    dataHandler.updateData(content, "lihtcData");
   };
 
 
@@ -524,6 +747,9 @@ export const LIHTCOneSelector: React.FC = () => {
 
   const onChange: CountyTractTransferProps['onChange'] = (nextTargetKeys) => {
     setTargetKeys(nextTargetKeys);
+    //DO SAVE ACTION HERE
+    var content = setLIHTC(nextTargetKeys, 1);
+    dataHandler.updateData(content, "lihtcData");
   };
 
 
@@ -556,6 +782,9 @@ export const ActiveDevSelector: React.FC = () => {
 
   const onChange: CityTransferProps['onChange'] = (nextTargetKeys) => {
     setTargetKeys(nextTargetKeys);
+    //DO SAVE ACTION HERE
+    var content = setActiveDev(nextTargetKeys);
+    dataHandler.updateData(content, "activedevData");
   };
 
 
@@ -588,6 +817,9 @@ export const HQJobsTwoSelector: React.FC = () => {
 
   const onChange: CityTransferProps['onChange'] = (nextTargetKeys) => {
     setTargetKeys(nextTargetKeys);
+    //DO SAVE ACTION HERE
+    var content = setHQJobs(nextTargetKeys, 2);
+    dataHandler.updateData(content, "hqjobsData");
   };
 
 
@@ -620,6 +852,9 @@ export const HQJobsOneSelector: React.FC = () => {
 
   const onChange: CityTransferProps['onChange'] = (nextTargetKeys) => {
     setTargetKeys(nextTargetKeys);
+    //DO SAVE ACTION HERE
+    var content = setHQJobs(nextTargetKeys, 1);
+    dataHandler.updateData(content, "hqjobsData");
   };
 
 
@@ -652,6 +887,9 @@ export const SocialVulnSelector: React.FC = () => {
   
     const onChange: CountyTransferProps['onChange'] = (nextTargetKeys) => {
       setTargetKeys(nextTargetKeys);
+      //DO SAVE ACTION HERE
+      var content = setSocialVuln(nextTargetKeys);
+      dataHandler.updateData(content, "socialvulnData");
     };
   
   
@@ -684,6 +922,9 @@ export const DRSelector: React.FC = () => {
 
   const onChange: CountyTransferProps['onChange'] = (nextTargetKeys) => {
     setTargetKeys(nextTargetKeys);
+    //DO SAVE ACTION HERE
+    var content = setDR(nextTargetKeys);
+    dataHandler.updateData(content, "drData");
   };
 
 

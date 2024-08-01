@@ -27,6 +27,7 @@ export function Homebutton() {
 
     function handleClick() {
         navigate('/');
+        window.location.reload();
     }
 
     return (
