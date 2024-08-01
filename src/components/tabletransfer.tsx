@@ -300,10 +300,9 @@ export const MQCTSelector: React.FC = () => {
 
   const onChange: CountyTractTransferProps['onChange'] = (nextTargetKeys) => {
     setTargetKeys(nextTargetKeys);
+    //DO SAVE ACTION HERE
+    dataHandler.updateData(nextTargetKeys)
   };
-
-  //DO SAVE ACTION HERE
-  console.log(targetKeys);
 
   return (
     <div>

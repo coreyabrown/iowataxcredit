@@ -1,7 +1,68 @@
 import { GridRowsProp, GridColDef } from '@mui/x-data-grid';
 import * as data from '../../data/data.json';
+import fs from 'fs';
+import path from 'path';
+import os from 'os';
 
-let jsonData = data;
+// MAKE FILE IF NECESSARY
+const storagePath = path.join(os.homedir(), 'iowataxcreditprogram');
+const fileName = 'itcpdata.json';
+const dataFile = path.join(storagePath, fileName);
+
+if (!fs.existsSync(storagePath)){
+  try {
+    fs.mkdirSync(storagePath);
+  } catch (err) {
+    console.log(err)
+  }
+}
+if (!fs.existsSync(dataFile)){
+  try {
+    fs.writeFileSync(dataFile, JSON.stringify(data));
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+
+// GET FILE
+var jsonData: any;
+
+try {
+  jsonData = JSON.parse(fs.readFileSync(dataFile, 'utf-8'))
+} catch (err) {
+  console.error('UNABLE TO READ DATA FILE, REVERTING TO JULY 2024 DATA: ' + err);
+  jsonData = data;
+}
+
+// HANDLE FILE
+type StoredDataFile = {
+  updateDate: string,
+  mqctData: any[],
+  nmqctData: any[],
+  ddaData: any[],
+  ruralData: any[],
+  underservedData: any[],
+  rentburdenData: any[],
+  lihtcData: any[],
+  activedevData: any[],
+  hqjobsData: any[],
+  socialvulnData: any[],
+  drData: any[],
+  censusTracts: any,
+  countyList: any[],
+  cityList: any[],
+  countyTractList: any[],
+}
+
+export function updateData(contentJSON: any) {
+  console.log('STORE DATA HERE: ' + contentJSON.toString())
+  // Check file for all parts of type
+  // Overwrite file
+  // Refresh JSON Data
+  jsonData = JSON.parse(fs.readFileSync(dataFile, 'utf-8'))
+}
+
 let censusTracts : any = jsonData.censusTracts
 
 export const columns: GridColDef[] = [
@@ -98,10 +159,6 @@ function updateCensus(info: Array<object>) {
   }
 }
 
-export function lastUpdateDate() {
-  return jsonData.updateDate;
-}
-
 export function makeRows() {
   let rows = []
   let key: any;
@@ -135,18 +192,18 @@ export function makeRows() {
 
 }
 
+export function lastUpdateDate() {
+  return jsonData.updateDate;
+}
 export function getCityList() {
   return jsonData.cityList;
 }
-
 export function getCountyList() {
   return jsonData.countyList;
 }
-
 export function getCountyTractList() {
   return jsonData.countyTractList
 }
-
 export function getmqctData() { 
   return jsonData.mqctData
  }
