@@ -1,7 +1,7 @@
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import * as React from 'react'
-import FileUpload from '../components/fileupload';
+import { FileUpload, FileDownload } from '../components/fileupload';
 import { Entrybutton, Homebutton } from '../components/navigate';
 import Grid from '../components/grid'
 import BoxBasic from '../components/box';
@@ -14,6 +14,8 @@ function Display() {
   return (
     <div className='padded'>
       <Entrybutton />
+      <FileUpload />
+      <FileDownload />
       <div> &nbsp; </div>
       <Grid />
       <BoxBasic />

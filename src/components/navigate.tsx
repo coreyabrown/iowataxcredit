@@ -17,7 +17,7 @@ export function Entrybutton() {
             startIcon={<Edit />}
             sx={{ marginRight: "1rem" }}
           >
-            Update Data
+            Edit Data
           </Button>
     );
 }

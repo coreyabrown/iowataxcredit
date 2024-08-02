@@ -3,7 +3,7 @@ import { makeRows, columns } from './datahandler';
 
 export default function Grid() {
     return(
-      <div style={{ height: '85vh', width: '100%' }}>
+      <div style={{ height: '80vh', width: '100%' }}>
         <DataGrid rows={makeRows()} columns={columns} />
       </div>
     )

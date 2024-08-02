@@ -1,9 +1,11 @@
-import { UploadFile } from "@mui/icons-material";
+import { UploadFile, Download } from "@mui/icons-material";
 import { ChangeEvent, useState } from "react";
 import { Button } from "@mui/material";
+import { dataFile, fileValidation, downloadsPath } from "./datahandler";
+import fs from 'fs';
 import path from 'path';
 
-export default function FileUpload() {
+export function FileUpload() {
     const [filename, setFilename] = useState("");
 
     const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
@@ -15,8 +17,13 @@ export default function FileUpload() {
         if (file != undefined) {
             const { name } = file;
             setFilename(name);
-            console.log(file.path)
 
+            const fileContent = fs.readFileSync(file.path, 'utf-8');
+            if (fileValidation(fileContent)){
+              fs.copyFileSync(file.path, dataFile)
+              window.location.reload()
+            }
+            
         } else {
           setFilename('')
         }
@@ -28,12 +35,33 @@ export default function FileUpload() {
             component="label"
             variant="outlined"
             startIcon={<UploadFile />}
-            sx={{ marginRight: "1rem" }}
+            sx={{ marginLeft: "1rem", float: "right" }}
           >
-            Upload Appendices PDF
-            <input type="file" accept=".pdf" hidden onChange={handleFileUpload} />
+            Upload Data
+            <input type="file" accept=".json" hidden onChange={handleFileUpload} />
           </Button>
-          <span style={{color: "black"}}>{filename}</span>
           </>
     );
+}
+
+export function FileDownload() {
+
+  const dlFile = () => {
+    fs.copyFileSync(dataFile, path.join(downloadsPath,'IowaTaxCredit_Export.json'));
+    alert('A file titled "IowaTaxCredit_Export.json" has been downloaded to your Downloads folder.');
+  }
+
+  return (
+    <>
+      <Button
+            component="label"
+            variant="outlined"
+            onClick={() => dlFile()}
+            startIcon={<Download />}
+            sx={{ marginLeft: "1rem", float: "right" }}
+          >
+            Download Data
+          </Button>
+      </>
+);
 }

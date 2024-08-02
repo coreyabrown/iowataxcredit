@@ -5,9 +5,10 @@ import path from 'path';
 import os from 'os';
 
 // MAKE FILE IF NECESSARY
-const storagePath = path.join(os.homedir(), 'iowataxcreditprogram');
+export const storagePath = path.join(os.homedir(), 'iowataxcreditprogram');
+export const downloadsPath = path.join(os.homedir(), 'Downloads')
 const fileName = 'itcpdata.json';
-const dataFile = path.join(storagePath, fileName);
+export const dataFile = path.join(storagePath, fileName);
 
 if (!fs.existsSync(storagePath)){
   try {
@@ -37,24 +38,25 @@ try {
   jsonData = data;
 }
 
-// HANDLE FILE
-type StoredDataFile = {
-  updateDate: string,
-  mqctData: any[],
-  nmqctData: any[],
-  ddaData: any[],
-  ruralData: any[],
-  underservedData: any[],
-  rentburdenData: any[],
-  lihtcData: any[],
-  activedevData: any[],
-  hqjobsData: any[],
-  socialvulnData: any[],
-  drData: any[],
-  censusTracts: any,
-  countyList: any[],
-  cityList: any[],
-  countyTractList: any[],
+// VALIDATE FILE
+export function fileValidation(contentJSON: any) {
+  console.log(contentJSON);
+  const keysArray: Array<string> = ['updateDate', 'mqctData', 'nmqctData', 'ddaData', 'ruralData', 'underservedData', 'rentburdenData', 'lihtcData', 'activedevData', 'hqjobsData', 'socialvulnData', 'drData', 'censusTracts', 'countyList', 'cityList', 'countyTractList'];
+  var checkArray: Array<string> = [];
+  for (const key in JSON.parse(contentJSON)) {
+    checkArray.push(key);
+  }
+  if (checkArray.length != keysArray.length) {
+    console.error('Uploaded file was not properly formatted')
+    return false;
+  }
+  for (const item of checkArray) {
+    if (!keysArray.includes(item)) {
+      console.error('Uploaded file did not match at key: ' + item)
+      return false;
+    }
+  }
+  return true;
 }
 
 export function updateData(contentJSON: any, key: any) {
