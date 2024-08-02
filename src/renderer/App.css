@@ -64,6 +64,6 @@ a:hover {
   padding: 10px;
   overflow-y: auto;
   height: 85vh;
-  border: 1px solid gray;
+  border: 1px solid #e7e7e7;
   border-radius: 5px;
 }
