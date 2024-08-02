@@ -3032,5 +3032,6 @@
 {"key": "822", "census": 19197680300, "tract": 6803, "county": "Wright"},
 {"key": "823", "census": 19197680400, "tract": 6804, "county": "Wright"},
 {"key": "824", "census": 19197680500, "tract": 6805, "county": "Wright"}
-]
+],
+"default": {}
 }

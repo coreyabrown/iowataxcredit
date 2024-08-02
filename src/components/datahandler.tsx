@@ -41,7 +41,7 @@ try {
 // VALIDATE FILE
 export function fileValidation(contentJSON: any) {
   console.log(contentJSON);
-  const keysArray: Array<string> = ['updateDate', 'mqctData', 'nmqctData', 'ddaData', 'ruralData', 'underservedData', 'rentburdenData', 'lihtcData', 'activedevData', 'hqjobsData', 'socialvulnData', 'drData', 'censusTracts', 'countyList', 'cityList', 'countyTractList'];
+  const keysArray: Array<string> = ['updateDate', 'mqctData', 'nmqctData', 'ddaData', 'ruralData', 'underservedData', 'rentburdenData', 'lihtcData', 'activedevData', 'hqjobsData', 'socialvulnData', 'drData', 'censusTracts', 'countyList', 'cityList', 'countyTractList', 'default'];
   var checkArray: Array<string> = [];
   for (const key in JSON.parse(contentJSON)) {
     checkArray.push(key);
