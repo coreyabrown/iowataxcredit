@@ -28,22 +28,22 @@ function Entry() {
     <div className='padded'>
       <Homebutton />
       <div> &nbsp; </div>
-      <MQCTSelector />
-      <NMQCTSelector />
-      <DDASelector />
-      <RuralSelector />
-      <UnderservedSelector />
-      <RentBurdenSelector />
-      <LIHTCZeroSelector />
-      <LIHTCOneSelector />
-      <ActiveDevSelector />
-      <HQJobsTwoSelector />
-      <HQJobsOneSelector />
-      <SocialVulnSelector />
-      <DRSelector />
-      <div> &nbsp; </div>
-      <Homebutton />
-      <div> &nbsp; </div>
+      <div className='scrollable'>
+        <MQCTSelector />
+        <NMQCTSelector />
+        <DDASelector />
+        <RuralSelector />
+        <UnderservedSelector />
+        <RentBurdenSelector />
+        <LIHTCZeroSelector />
+        <LIHTCOneSelector />
+        <ActiveDevSelector />
+        <HQJobsTwoSelector />
+        <HQJobsOneSelector />
+        <SocialVulnSelector />
+        <DRSelector />
+        <div> &nbsp; </div>
+      </div>
     </div>
   )
 }

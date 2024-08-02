@@ -650,7 +650,7 @@ export const UnderservedSelector: React.FC = () => {
   
     return (
       <div>
-      <h2>Underserved ➡️ NOT Included</h2>
+      <h2>Underserved ➡️ Zero Points (NOT Included)</h2>
       <Flex align="start" gap="middle" vertical>
         <CityTransfer
           dataSource={CityListData}
@@ -685,7 +685,7 @@ export const RentBurdenSelector: React.FC = () => {
 
   return (
     <div>
-    <h2>Rent Burdened ➡️ Included</h2>
+    <h2>Rent Burdened ➡️ One Point</h2>
     <Flex align="start" gap="middle" vertical>
       <CityTransfer
         dataSource={CityListData}
@@ -790,7 +790,7 @@ export const ActiveDevSelector: React.FC = () => {
 
   return (
     <div>
-    <h2>Active Development ➡️ Included</h2>
+    <h2>Active Development ➡️ One Point</h2>
     <Flex align="start" gap="middle" vertical>
       <CityTransfer
         dataSource={CityListData}
@@ -895,7 +895,7 @@ export const SocialVulnSelector: React.FC = () => {
   
     return (
       <div>
-      <h2>Social Vulnerability ➡️ Included</h2>
+      <h2>Social Vulnerability ➡️ One Point</h2>
       <Flex align="start" gap="middle" vertical>
         <CountyTransfer
           dataSource={CountyListData}
@@ -930,7 +930,7 @@ export const DRSelector: React.FC = () => {
 
   return (
     <div>
-    <h2>Disaster Recovery ➡️ 2 Points</h2>
+    <h2>Disaster Recovery ➡️ Two Points</h2>
     <Flex align="start" gap="middle" vertical>
       <CountyTransfer
         dataSource={CountyListData}

@@ -56,7 +56,14 @@ a:hover {
 
 .padded {
   width: 80vw;
-  height: 95vh;
+  height: 90vh;
   position: relative;
-  top: 50%;
+}
+
+.scrollable {
+  padding: 10px;
+  overflow-y: auto;
+  height: 85vh;
+  border: 1px solid gray;
+  border-radius: 5px;
 }
