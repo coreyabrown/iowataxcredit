@@ -82,28 +82,28 @@ export function ClearAllButton() {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Warning"}
+          {"⚠️ Warning"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure you want to delete all selected data?
+            Are you sure you want to remove all data from selections?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button 
-            onClick={handleClose} 
-            startIcon={<Cancel />}
-            variant="outlined"
-          >
-            No, keep the data
-          </Button>
-          <Button 
-            onClick={handleClick} 
-            autoFocus 
+        <Button 
+            onClick={handleClick}  
             startIcon={<Check />}
             variant="outlined"
           >
             Yes, delete the data
+          </Button>
+          <Button 
+            onClick={handleClose} 
+            startIcon={<Cancel />}
+            variant="outlined"
+            autoFocus
+          >
+            No, keep the data
           </Button>
         </DialogActions>
       </Dialog>
