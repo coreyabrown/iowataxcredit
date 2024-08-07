@@ -2,7 +2,7 @@ import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import * as React from 'react'
 import { FileUpload, FileDownload } from '../components/fileupload';
-import { Entrybutton, Homebutton } from '../components/navigate';
+import { ClearAllButton, Entrybutton, Homebutton } from '../components/navigate';
 import Grid from '../components/grid'
 import BoxBasic from '../components/box';
 import { MQCTSelector, NMQCTSelector, DDASelector, RuralSelector, UnderservedSelector, RentBurdenSelector, LIHTCZeroSelector, LIHTCOneSelector, ActiveDevSelector, HQJobsTwoSelector, HQJobsOneSelector, SocialVulnSelector, DRSelector } from '../components/tabletransfer'
@@ -27,6 +27,7 @@ function Entry() {
   return (
     <div className='padded'>
       <Homebutton />
+      <ClearAllButton />
       <div> &nbsp; </div>
       <div className='scrollable'>
         <MQCTSelector />

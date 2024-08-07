@@ -59,12 +59,18 @@ export function fileValidation(contentJSON: any) {
   return true;
 }
 
-export function updateData(contentJSON: any, key: any) {
+function updateDate() {
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, '0');
   var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
   var yyyy = today.getFullYear();
   var todayString: string = mm + '/' + dd + '/' + yyyy;
+
+  return todayString;
+}
+
+export function updateData(contentJSON: any, key: any) {
+  var todayString = updateDate()
 
   jsonData[key as keyof typeof jsonData] = contentJSON;
   jsonData.updateDate = todayString;
@@ -72,6 +78,14 @@ export function updateData(contentJSON: any, key: any) {
   // UPDATE CENSUSTRACTS to default values of the key
   fs.writeFileSync(dataFile, JSON.stringify(jsonData));
   jsonData = JSON.parse(fs.readFileSync(dataFile, 'utf-8'));
+}
+
+export function clearData() {
+  const clearKeys: Array<string> = ['mqctData', 'nmqctData', 'ddaData', 'ruralData', 'underservedData', 'rentburdenData', 'lihtcData', 'activedevData', 'hqjobsData', 'socialvulnData', 'drData'];
+  const emptyData: Array<object> = [];
+  for (var key in clearKeys) {
+    updateData(emptyData, clearKeys[key]);
+  }
 }
 
 let censusTracts : any = jsonData.censusTracts
