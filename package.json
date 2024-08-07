@@ -1,39 +1,27 @@
 {
   "name": "iowataxcreditprogram",
-  "description": "A foundation for scalable desktop apps",
-  "version": "3.0.0",
+  "description": "An application used to calculate tax credits for land development in Iowa.",
+  "version": "5.0.0",
   "keywords": [
-    "electron",
-    "boilerplate",
-    "react",
-    "typescript",
-    "ts",
-    "sass",
-    "webpack",
-    "hot",
-    "reload"
+    "iowa",
+    "tax",
+    "land",
+    "development"
   ],
-  "homepage": "https://github.com/electron-react-boilerplate/electron-react-boilerplate#readme",
+  "homepage": "https://github.com/coreyabrown/iowataxcredit",
   "bugs": {
-    "url": "https://github.com/electron-react-boilerplate/electron-react-boilerplate/issues"
+    "url": "https://github.com/coreyabrown/iowataxcredit"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/electron-react-boilerplate/electron-react-boilerplate.git"
+    "url": "git+https://github.com/coreyabrown/iowataxcredit"
   },
   "license": "MIT",
   "author": {
-    "name": "Electron React Boilerplate Maintainers",
-    "email": "electronreactboilerplate@gmail.com",
-    "url": "https://electron-react-boilerplate.js.org"
+    "name": "Corey Brown",
+    "email": "coreyabrown.cb@gmail.com",
+    "url": "https://github.com/coreyabrown/iowataxcredit"
   },
-  "contributors": [
-    {
-      "name": "Amila Welihinda",
-      "email": "amilajack@gmail.com",
-      "url": "https://github.com/amilajack"
-    }
-  ],
   "main": "./src/main/main.ts",
   "scripts": {
     "build": "concurrently \"npm run build:main\" \"npm run build:renderer\"",

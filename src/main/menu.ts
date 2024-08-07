@@ -155,29 +155,17 @@ export default class MenuBuilder {
       label: 'Help',
       submenu: [
         {
-          label: 'Learn More',
-          click() {
-            shell.openExternal('https://electronjs.org');
-          },
-        },
-        {
-          label: 'Documentation',
+          label: 'Iowa Finance',
           click() {
             shell.openExternal(
-              'https://github.com/electron/electron/tree/main/docs#readme',
+              'https://www.iowafinance.com/',
             );
           },
         },
         {
-          label: 'Community Discussions',
+          label: 'Census Tracts',
           click() {
-            shell.openExternal('https://www.electronjs.org/community');
-          },
-        },
-        {
-          label: 'Search Issues',
-          click() {
-            shell.openExternal('https://github.com/electron/electron/issues');
+            shell.openExternal('https://www2.census.gov/geo/maps/dc10map/tract/st19_ia/');
           },
         },
       ],
@@ -256,29 +244,17 @@ export default class MenuBuilder {
         label: 'Help',
         submenu: [
           {
-            label: 'Learn More',
-            click() {
-              shell.openExternal('https://electronjs.org');
-            },
-          },
-          {
-            label: 'Documentation',
+            label: 'Iowa Finance',
             click() {
               shell.openExternal(
-                'https://github.com/electron/electron/tree/main/docs#readme',
+                'https://www.iowafinance.com/',
               );
             },
           },
           {
-            label: 'Community Discussions',
+            label: 'Census Tracts',
             click() {
-              shell.openExternal('https://www.electronjs.org/community');
-            },
-          },
-          {
-            label: 'Search Issues',
-            click() {
-              shell.openExternal('https://github.com/electron/electron/issues');
+              shell.openExternal('https://www2.census.gov/geo/maps/dc10map/tract/st19_ia/');
             },
           },
         ],
