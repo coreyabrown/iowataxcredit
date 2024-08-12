@@ -3,9 +3,29 @@ import { Flex, Table, Transfer } from 'antd';
 import type { GetProp, TableColumnsType, TableProps, TransferProps } from 'antd';
 import * as dataHandler from '../components/datahandler'
 import Divider from '@mui/material/Divider'
+import { DeleteForever } from "@mui/icons-material";
+import { Button } from "@mui/material";
+import { getByDisplayValue } from '@testing-library/react';
 
 type TransferItem = GetProp<TransferProps, 'dataSource'>[number];
 type TableRowSelection<T extends object> = TableProps<T>['rowSelection'];
+
+// CLEAR BUTTON
+function clearButton(buttonName: string) {
+  const handleClick = () => {
+    window.location.reload();
+}
+
+  return (<Button
+        onClick={handleClick}
+        component="label"
+        variant="outlined"
+        startIcon={<DeleteForever />}
+        sx={{ marginLeft: "1rem", float: "right" }}
+      >
+        {buttonName}
+      </Button>)
+}
 
 // ALL LIST INTERFACES
 interface CountyList {
@@ -509,9 +529,25 @@ export const MQCTSelector: React.FC = () => {
     dataHandler.updateData(content, "mqctData");
   };
 
+  const handleClick = () => {
+    setTargetKeys([]);
+    var content = setMQCT([]);
+    dataHandler.updateData(content, "mqctData");
+  };
+
   return (
     <div>
-    <h2>MQCT ➡️ Included</h2>
+      <h2 className='inline'>MQCT ➡️ Included 
+        <Button
+          onClick={handleClick}
+          component="label"
+          variant="outlined"
+          startIcon={<DeleteForever />}
+          sx={{ marginLeft: "1rem", float: "right" }}
+        >
+          Clear MQCT Data
+        </Button> </h2>
+          
     <Flex align="start" gap="middle" vertical>
       <CountyTractTransfer
         dataSource={CountyTractListData}
@@ -542,10 +578,24 @@ export const NMQCTSelector: React.FC = () => {
     dataHandler.updateData(content, "nmqctData");
   };
 
+  const handleClick = () => {
+    setTargetKeys([]);
+    var content = setNMQCT([]);
+    dataHandler.updateData(content, "nmqctData");
+  };
 
   return (
     <div>
-    <h2>NMQCT ➡️ Included</h2>
+    <h2>NMQCT ➡️ Included
+        <Button
+          onClick={handleClick}
+          component="label"
+          variant="outlined"
+          startIcon={<DeleteForever />}
+          sx={{ marginLeft: "1rem", float: "right" }}
+        >
+          Clear NMQCT Data
+        </Button> </h2>
     <Flex align="start" gap="middle" vertical>
       <CountyTractTransfer
         dataSource={CountyTractListData}
@@ -577,10 +627,24 @@ export const DDASelector: React.FC = () => {
     dataHandler.updateData(content, "ddaData");
   };
 
+  const handleClick = () => {
+    setTargetKeys([]);
+    var content = setDDA([]);
+    dataHandler.updateData(content, "ddaData");
+  };
 
   return (
     <div>
-    <h2>DDA ➡️ Included</h2>
+    <h2>DDA ➡️ Included
+        <Button
+          onClick={handleClick}
+          component="label"
+          variant="outlined"
+          startIcon={<DeleteForever />}
+          sx={{ marginLeft: "1rem", float: "right" }}
+        >
+          Clear DDA Data
+        </Button> </h2>
     <Flex align="start" gap="middle" vertical>
       <CountyTractTransfer
         dataSource={CountyTractListData}
@@ -612,10 +676,24 @@ export const RuralSelector: React.FC = () => {
     dataHandler.updateData(content, "ruralData");
   };
 
+  const handleClick = () => {
+    setTargetKeys([]);
+    var content = setRural([]);
+    dataHandler.updateData(content, "ruralData");
+  };
 
   return (
     <div>
-    <h2>Rural ➡️ Not Rural</h2>
+    <h2>Rural ➡️ Not Rural
+        <Button
+          onClick={handleClick}
+          component="label"
+          variant="outlined"
+          startIcon={<DeleteForever />}
+          sx={{ marginLeft: "1rem", float: "right" }}
+        >
+          Clear Rural Data
+        </Button> </h2>
     <Flex align="start" gap="middle" vertical>
       <CountyTransfer
         dataSource={CountyListData}
@@ -647,10 +725,24 @@ export const UnderservedSelector: React.FC = () => {
     dataHandler.updateData(content, "underservedData");
     };
   
+    const handleClick = () => {
+      setTargetKeys([]);
+      var content = setUnderserved([]);
+      dataHandler.updateData(content, "underservedData");
+    };
   
     return (
       <div>
-      <h2>Underserved ➡️ Zero Points (NOT Included)</h2>
+      <h2>Underserved ➡️ Zero Points (NOT Included)
+        <Button
+          onClick={handleClick}
+          component="label"
+          variant="outlined"
+          startIcon={<DeleteForever />}
+          sx={{ marginLeft: "1rem", float: "right" }}
+        >
+          Clear Underserved Data
+        </Button> </h2>
       <Flex align="start" gap="middle" vertical>
         <CityTransfer
           dataSource={CityListData}
@@ -682,10 +774,24 @@ export const RentBurdenSelector: React.FC = () => {
     dataHandler.updateData(content, "rentburdenData");
   };
 
+  const handleClick = () => {
+    setTargetKeys([]);
+    var content = setRentBurden([]);
+    dataHandler.updateData(content, "rentburdenData");
+  };
 
   return (
     <div>
-    <h2>Rent Burdened ➡️ One Point</h2>
+    <h2>Rent Burdened ➡️ One Point
+        <Button
+          onClick={handleClick}
+          component="label"
+          variant="outlined"
+          startIcon={<DeleteForever />}
+          sx={{ marginLeft: "1rem", float: "right" }}
+        >
+          Clear Rent Burdened Data
+        </Button> </h2>
     <Flex align="start" gap="middle" vertical>
       <CityTransfer
         dataSource={CityListData}
@@ -717,10 +823,24 @@ export const LIHTCZeroSelector: React.FC = () => {
     dataHandler.updateData(content, "lihtcData");
   };
 
+  const handleClick = () => {
+    setTargetKeys([]);
+    var content = setLIHTC([], 0);
+    dataHandler.updateData(content, "lihtcData");
+  };
 
   return (
     <div>
-    <h2>LIHTC ➡️ Zero Points</h2>
+    <h2>LIHTC ➡️ Zero Points
+        <Button
+          onClick={handleClick}
+          component="label"
+          variant="outlined"
+          startIcon={<DeleteForever />}
+          sx={{ marginLeft: "1rem", float: "right" }}
+        >
+          Clear LIHTC (0) Data
+        </Button> </h2>
     <Flex align="start" gap="middle" vertical>
       <CountyTractTransfer
         dataSource={CountyTractListData}
@@ -752,10 +872,24 @@ export const LIHTCOneSelector: React.FC = () => {
     dataHandler.updateData(content, "lihtcData");
   };
 
+  const handleClick = () => {
+    setTargetKeys([]);
+    var content = setLIHTC([], 1);
+    dataHandler.updateData(content, "lihtcData");
+  };
 
   return (
     <div>
-    <h2>LIHTC ➡️ One Point</h2>
+    <h2>LIHTC ➡️ One Point
+        <Button
+          onClick={handleClick}
+          component="label"
+          variant="outlined"
+          startIcon={<DeleteForever />}
+          sx={{ marginLeft: "1rem", float: "right" }}
+        >
+          Clear LIHTC (1) Data
+        </Button> </h2>
     <Flex align="start" gap="middle" vertical>
       <CountyTractTransfer
         dataSource={CountyTractListData}
@@ -787,10 +921,24 @@ export const ActiveDevSelector: React.FC = () => {
     dataHandler.updateData(content, "activedevData");
   };
 
+  const handleClick = () => {
+    setTargetKeys([]);
+    var content = setActiveDev([]);
+    dataHandler.updateData(content, "activedevData");
+  };
 
   return (
     <div>
-    <h2>Active Development ➡️ One Point</h2>
+    <h2>Active Development ➡️ One Point
+        <Button
+          onClick={handleClick}
+          component="label"
+          variant="outlined"
+          startIcon={<DeleteForever />}
+          sx={{ marginLeft: "1rem", float: "right" }}
+        >
+          Clear Active Development Data
+        </Button> </h2>
     <Flex align="start" gap="middle" vertical>
       <CityTransfer
         dataSource={CityListData}
@@ -822,10 +970,24 @@ export const HQJobsTwoSelector: React.FC = () => {
     dataHandler.updateData(content, "hqjobsData");
   };
 
+  const handleClick = () => {
+    setTargetKeys([]);
+    var content = setHQJobs([], 2);
+    dataHandler.updateData(content, "hqjobsData");
+  };
 
   return (
     <div>
-    <h2>High Quality Jobs ➡️ Two Points</h2>
+    <h2>High Quality Jobs ➡️ Two Points
+        <Button
+          onClick={handleClick}
+          component="label"
+          variant="outlined"
+          startIcon={<DeleteForever />}
+          sx={{ marginLeft: "1rem", float: "right" }}
+        >
+          Clear High Quality Jobs (2) Data
+        </Button> </h2>
     <Flex align="start" gap="middle" vertical>
       <CityTransfer
         dataSource={CityListData}
@@ -857,10 +1019,24 @@ export const HQJobsOneSelector: React.FC = () => {
     dataHandler.updateData(content, "hqjobsData");
   };
 
+  const handleClick = () => {
+    setTargetKeys([]);
+    var content = setHQJobs([], 1);
+    dataHandler.updateData(content, "hqjobsData");
+  };
 
   return (
     <div>
-    <h2>High Quality Jobs ➡️ One Point</h2>
+    <h2>High Quality Jobs ➡️ One Point
+        <Button
+          onClick={handleClick}
+          component="label"
+          variant="outlined"
+          startIcon={<DeleteForever />}
+          sx={{ marginLeft: "1rem", float: "right" }}
+        >
+          Clear High Quality Jobs (1) Data
+        </Button> </h2>
     <Flex align="start" gap="middle" vertical>
       <CityTransfer
         dataSource={CityListData}
@@ -892,10 +1068,24 @@ export const SocialVulnSelector: React.FC = () => {
       dataHandler.updateData(content, "socialvulnData");
     };
   
-  
+    const handleClick = () => {
+      setTargetKeys([]);
+      var content = setSocialVuln([]);
+      dataHandler.updateData(content, "socialvulnData");
+    };
+
     return (
       <div>
-      <h2>Social Vulnerability ➡️ One Point</h2>
+      <h2>Social Vulnerability ➡️ One Point
+        <Button
+          onClick={handleClick}
+          component="label"
+          variant="outlined"
+          startIcon={<DeleteForever />}
+          sx={{ marginLeft: "1rem", float: "right" }}
+        >
+          Clear Social Vulnerability Data
+        </Button> </h2>
       <Flex align="start" gap="middle" vertical>
         <CountyTransfer
           dataSource={CountyListData}
@@ -927,10 +1117,24 @@ export const DRSelector: React.FC = () => {
     dataHandler.updateData(content, "drData");
   };
 
+  const handleClick = () => {
+    setTargetKeys([]);
+    var content = setDR([]);
+    dataHandler.updateData(content, "drData");
+  };
 
   return (
     <div>
-    <h2>Disaster Recovery ➡️ Two Points</h2>
+    <h2>Disaster Recovery ➡️ Two Points
+        <Button
+          onClick={handleClick}
+          component="label"
+          variant="outlined"
+          startIcon={<DeleteForever />}
+          sx={{ marginLeft: "1rem", float: "right" }}
+        >
+          Clear Disaster Recovery Data
+        </Button> </h2>
     <Flex align="start" gap="middle" vertical>
       <CountyTransfer
         dataSource={CountyListData}
