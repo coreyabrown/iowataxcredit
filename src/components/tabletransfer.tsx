@@ -5,27 +5,9 @@ import * as dataHandler from '../components/datahandler'
 import Divider from '@mui/material/Divider'
 import { DeleteForever } from "@mui/icons-material";
 import { Button } from "@mui/material";
-import { getByDisplayValue } from '@testing-library/react';
 
 type TransferItem = GetProp<TransferProps, 'dataSource'>[number];
 type TableRowSelection<T extends object> = TableProps<T>['rowSelection'];
-
-// CLEAR BUTTON
-function clearButton(buttonName: string) {
-  const handleClick = () => {
-    window.location.reload();
-}
-
-  return (<Button
-        onClick={handleClick}
-        component="label"
-        variant="outlined"
-        startIcon={<DeleteForever />}
-        sx={{ marginLeft: "1rem", float: "right" }}
-      >
-        {buttonName}
-      </Button>)
-}
 
 // ALL LIST INTERFACES
 interface CountyList {

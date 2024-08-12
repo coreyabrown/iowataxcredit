@@ -1,6 +1,5 @@
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import * as React from 'react'
 import { FileUpload, FileDownload } from '../components/fileupload';
 import { ClearAllButton, Entrybutton, Homebutton } from '../components/navigate';
 import Grid from '../components/grid'
