@@ -1,7 +1,7 @@
 {
   "name": "iowataxcreditprogram",
   "description": "An application used to calculate tax credits for land development in Iowa.",
-  "version": "5.0.0",
+  "version": "5.1.0",
   "keywords": [
     "iowa",
     "tax",
