@@ -340,7 +340,6 @@
   ],
   
 "drData" : [
-    {"dr": 2, "county": "Scott"}
   ],
 
 "censusTracts" : {"19001960100Adair": {"id": 1, "census": 19001960100, "tract": 9601, "county": "Adair", "city": "Adair", "score": 0,  "mqct": false, "nmqct": false, "dda": false, "rural": true, "underserved": 2, "rentburden": 0, "lihtc": 2, "activedev": 0, "hqjobs": 0, "socialvuln": 0, "dr": 0},

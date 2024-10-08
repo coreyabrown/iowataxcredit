@@ -221,6 +221,23 @@ function getSelectedCountyTracts(dataStruct: any) {
   return selectedCountyTracts as React.Key[];
 }
 
+function getSelectedUnderserved(dataStruct: any, points: number) {
+  var selectedCities: Array<any> = [];
+
+  dataStruct.forEach(function (item: any) {
+    var cityName = item.city;
+    var pointVal = item.underserved;
+    if (pointVal == points) {
+      CityListData.forEach(function (item: any) {
+        if (item.city == cityName) {
+          selectedCities.push(item.key);
+        }
+      })
+    }
+  })
+  return selectedCities as React.Key[];
+}
+
 function getSelectedLIHTC(dataStruct: any, points: number) {
   var selectedCountyTracts: Array<any> = [];
 
@@ -237,6 +254,23 @@ function getSelectedLIHTC(dataStruct: any, points: number) {
     }
   })
   return selectedCountyTracts as React.Key[];
+}
+
+function getSelectedDR(dataStruct: any, points: number) {
+  var selectedCities: Array<any> = [];
+
+  dataStruct.forEach(function (item: any) {
+    var cityName = item.city;
+    var pointVal = item.dr;
+    if (pointVal == points) {
+      CityListData.forEach(function (item: any) {
+        if (item.city == cityName )  {
+          selectedCities.push(item.key);
+        }
+      })
+    }
+  })
+  return selectedCities as React.Key[];
 }
 
 function getSelectedHQJobs(dataStruct: any, points: number) {
@@ -320,18 +354,34 @@ function setRural(selectedKeys: React.Key[]) {
   return resultData;
 }
 
-function setUnderserved(selectedKeys: React.Key[]) {
+function setUnderserved(selectedKeys: React.Key[], points: number) {
   var resultData: Array<any> = []
   selectedKeys.forEach(function(item: any) {
     var tryKey = item;
     CityListData.forEach(function(item: any) {
       if (tryKey == item.key){
         var cityName = item.city;
-        var lineItem = {underserved: 0, city: cityName}
+        var lineItem = {underserved: points, city: cityName}
         resultData.push(lineItem)
       }
     })
   })
+  var existingPoints = 0;
+  if (points == 0) {
+    existingPoints = 1
+  }
+  var existingKeys = getSelectedUnderserved(dataHandler.getunderservedData(), existingPoints)
+  existingKeys.forEach(function(item: any) {
+    var tryKey = item;
+    CityListData.forEach(function(item: any) {
+      if (tryKey == item.key) {
+        var cityName = item.city;
+        var lineItem = {underserved: existingPoints, city: cityName}
+        resultData.push(lineItem)
+      }
+    })
+  })
+
   return resultData;
 }
 
@@ -443,14 +493,29 @@ function setSocialVuln(selectedKeys: React.Key[]) {
   return resultData;
 }
 
-function setDR(selectedKeys: React.Key[]) {
+function setDR(selectedKeys: React.Key[], points: number) {
   var resultData: Array<any> = []
   selectedKeys.forEach(function(item: any) {
     var tryKey = item;
-    CountyListData.forEach(function(item: any) {
+    CityListData.forEach(function(item: any) {
       if (tryKey == item.key){
-        var countyName = item.county;
-        var lineItem = {dr: 1, county: countyName}
+        var cityName = item.city;
+        var lineItem = {dr: points, city: cityName}
+        resultData.push(lineItem)
+      }
+    })
+  })
+  var existingPoints = 1;
+  if (points == 1) {
+    existingPoints = 2
+  }
+  var existingKeys = getSelectedDR(dataHandler.getdrData(), existingPoints)
+  existingKeys.forEach(function(item: any) {
+    var tryKey = item;
+    CityListData.forEach(function(item: any) {
+      if (tryKey == item.key){
+        var cityName = item.city;
+        var lineItem = {dr: existingPoints, city: cityName}
         resultData.push(lineItem)
       }
     })
@@ -696,20 +761,20 @@ export const RuralSelector: React.FC = () => {
 };
 
 export const UnderservedSelector: React.FC = () => {
-    const initialTargets = getSelectedCities(dataHandler.getunderservedData());
+    const initialTargets = getSelectedUnderserved(dataHandler.getunderservedData(), 0);
     const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>(initialTargets);
     const [disabled, setDisabled] = useState(false);
   
     const onChange: CityTransferProps['onChange'] = (nextTargetKeys) => {
       setTargetKeys(nextTargetKeys);
       //DO SAVE ACTION HERE
-    var content = setUnderserved(nextTargetKeys);
+    var content = setUnderserved(nextTargetKeys, 0);
     dataHandler.updateData(content, "underservedData");
     };
   
     const handleClick = () => {
       setTargetKeys([]);
-      var content = setUnderserved([]);
+      var content = setUnderserved([], 0);
       dataHandler.updateData(content, "underservedData");
     };
   
@@ -723,7 +788,7 @@ export const UnderservedSelector: React.FC = () => {
           startIcon={<DeleteForever />}
           sx={{ marginLeft: "1rem", float: "right" }}
         >
-          Clear Underserved Data
+          Clear Underserved Data (0)
         </Button> </h2>
       <Flex align="start" gap="middle" vertical>
         <CityTransfer
@@ -742,6 +807,55 @@ export const UnderservedSelector: React.FC = () => {
       <Divider />
       </div>
     );
+};
+
+export const UnderservedSelectorOne: React.FC = () => {
+  const initialTargets = getSelectedUnderserved(dataHandler.getunderservedData(), 1);
+  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>(initialTargets);
+  const [disabled, setDisabled] = useState(false);
+
+  const onChange: CityTransferProps['onChange'] = (nextTargetKeys) => {
+    setTargetKeys(nextTargetKeys);
+    //DO SAVE ACTION HERE
+  var content = setUnderserved(nextTargetKeys, 1);
+  dataHandler.updateData(content, "underservedData");
+  };
+
+  const handleClick = () => {
+    setTargetKeys([]);
+    var content = setUnderserved([], 1);
+    dataHandler.updateData(content, "underservedData");
+  };
+
+  return (
+    <div>
+    <h2>Underserved ➡️ One Point (NOT Included)
+      <Button
+        onClick={handleClick}
+        component="label"
+        variant="outlined"
+        startIcon={<DeleteForever />}
+        sx={{ marginLeft: "1rem", float: "right" }}
+      >
+        Clear Underserved Data (1)
+      </Button> </h2>
+    <Flex align="start" gap="middle" vertical>
+      <CityTransfer
+        dataSource={CityListData}
+        targetKeys={targetKeys}
+        showSearch
+        showSelectAll={false}
+        onChange={onChange}
+        filterOption={cityFilterOption}
+        leftColumns={cityColumns}
+        rightColumns={cityColumns}
+      />
+
+    </Flex>
+    <div>&nbsp;</div>
+    <Divider />
+    </div>
+  );
 };
 
 export const RentBurdenSelector: React.FC = () => {
@@ -1088,20 +1202,20 @@ export const SocialVulnSelector: React.FC = () => {
 };
 
 export const DRSelector: React.FC = () => {
-  const initialTargets = getSelectedCounties(dataHandler.getdrData());
+  const initialTargets = getSelectedDR(dataHandler.getdrData(), 2);
   const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>(initialTargets);
   const [disabled, setDisabled] = useState(false);
 
-  const onChange: CountyTransferProps['onChange'] = (nextTargetKeys) => {
+  const onChange: CityTransferProps['onChange'] = (nextTargetKeys) => {
     setTargetKeys(nextTargetKeys);
     //DO SAVE ACTION HERE
-    var content = setDR(nextTargetKeys);
+    var content = setDR(nextTargetKeys, 2);
     dataHandler.updateData(content, "drData");
   };
 
   const handleClick = () => {
     setTargetKeys([]);
-    var content = setDR([]);
+    var content = setDR([], 2);
     dataHandler.updateData(content, "drData");
   };
 
@@ -1115,18 +1229,67 @@ export const DRSelector: React.FC = () => {
           startIcon={<DeleteForever />}
           sx={{ marginLeft: "1rem", float: "right" }}
         >
-          Clear Disaster Recovery Data
+          Clear Disaster Recovery Data (2)
         </Button> </h2>
     <Flex align="start" gap="middle" vertical>
-      <CountyTransfer
-        dataSource={CountyListData}
+      <CityTransfer
+        dataSource={CityListData}
         targetKeys={targetKeys}
         showSearch
         showSelectAll={false}
         onChange={onChange}
-        filterOption={countyFilterOption}
-        leftColumns={countyColumns}
-        rightColumns={countyColumns}
+        filterOption={cityFilterOption}
+        leftColumns={cityColumns}
+        rightColumns={cityColumns}
+      />
+
+    </Flex>
+    <div>&nbsp;</div>
+    <Divider />
+    </div>
+  );
+};
+
+export const DRSelectorOne: React.FC = () => {
+  const initialTargets = getSelectedDR(dataHandler.getdrData(), 1);
+  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>(initialTargets);
+  const [disabled, setDisabled] = useState(false);
+
+  const onChange: CityTransferProps['onChange'] = (nextTargetKeys) => {
+    setTargetKeys(nextTargetKeys);
+    //DO SAVE ACTION HERE
+    var content = setDR(nextTargetKeys, 1);
+    dataHandler.updateData(content, "drData");
+  };
+
+  const handleClick = () => {
+    setTargetKeys([]);
+    var content = setDR([], 1);
+    dataHandler.updateData(content, "drData");
+  };
+
+  return (
+    <div>
+    <h2>Disaster Recovery ➡️ One Point
+        <Button
+          onClick={handleClick}
+          component="label"
+          variant="outlined"
+          startIcon={<DeleteForever />}
+          sx={{ marginLeft: "1rem", float: "right" }}
+        >
+          Clear Disaster Recovery Data (1)
+        </Button> </h2>
+    <Flex align="start" gap="middle" vertical>
+      <CityTransfer
+        dataSource={CityListData}
+        targetKeys={targetKeys}
+        showSearch
+        showSelectAll={false}
+        onChange={onChange}
+        filterOption={cityFilterOption}
+        leftColumns={cityColumns}
+        rightColumns={cityColumns}
       />
 
     </Flex>

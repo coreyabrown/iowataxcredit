@@ -4,7 +4,7 @@ import { FileUpload, FileDownload } from '../components/fileupload';
 import { ClearAllButton, Entrybutton, Homebutton } from '../components/navigate';
 import Grid from '../components/grid'
 import BoxBasic from '../components/box';
-import { MQCTSelector, NMQCTSelector, DDASelector, RuralSelector, UnderservedSelector, RentBurdenSelector, LIHTCZeroSelector, LIHTCOneSelector, ActiveDevSelector, HQJobsTwoSelector, HQJobsOneSelector, SocialVulnSelector, DRSelector } from '../components/tabletransfer'
+import { MQCTSelector, NMQCTSelector, DDASelector, RuralSelector, UnderservedSelector, RentBurdenSelector, LIHTCZeroSelector, LIHTCOneSelector, ActiveDevSelector, HQJobsTwoSelector, HQJobsOneSelector, SocialVulnSelector, DRSelector, UnderservedSelectorOne, DRSelectorOne } from '../components/tabletransfer'
 
 const entryRoute = "/entry"
 const homeRoute = "/"
@@ -34,6 +34,7 @@ function Entry() {
         <DDASelector />
         <RuralSelector />
         <UnderservedSelector />
+        <UnderservedSelectorOne />
         <RentBurdenSelector />
         <LIHTCZeroSelector />
         <LIHTCOneSelector />
@@ -41,6 +42,7 @@ function Entry() {
         <HQJobsTwoSelector />
         <HQJobsOneSelector />
         <SocialVulnSelector />
+        <DRSelectorOne />
         <DRSelector />
         <div> &nbsp; </div>
       </div>
