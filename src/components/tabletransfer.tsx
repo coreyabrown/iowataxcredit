@@ -523,6 +523,21 @@ function setDR(selectedKeys: React.Key[], points: number) {
   return resultData;
 }
 
+function setThriving(selectedKeys: React.Key[]) {
+  var resultData: Array<any> = []
+  selectedKeys.forEach(function(item: any) {
+    var tryKey = item;
+    CityListData.forEach(function(item: any) {
+      if (tryKey == item.key){
+        var cityName = item.city;
+        var lineItem = {thriving: 2, city: cityName}
+        resultData.push(lineItem)
+      }
+    })
+  })
+  return resultData;
+}
+
 // DEFINE COLUMNS
 const cityColumns: TableColumnsType<CityList> = [
     {
@@ -1279,6 +1294,55 @@ export const DRSelectorOne: React.FC = () => {
           sx={{ marginLeft: "1rem", float: "right" }}
         >
           Clear Disaster Recovery Data (1)
+        </Button> </h2>
+    <Flex align="start" gap="middle" vertical>
+      <CityTransfer
+        dataSource={CityListData}
+        targetKeys={targetKeys}
+        showSearch
+        showSelectAll={false}
+        onChange={onChange}
+        filterOption={cityFilterOption}
+        leftColumns={cityColumns}
+        rightColumns={cityColumns}
+      />
+
+    </Flex>
+    <div>&nbsp;</div>
+    <Divider />
+    </div>
+  );
+};
+
+export const ThrivingSelector: React.FC = () => {
+  const initialTargets = getSelectedCities(dataHandler.getthrivingData());
+  const [targetKeys, setTargetKeys] = useState<TransferProps['targetKeys']>(initialTargets);
+  const [disabled, setDisabled] = useState(false);
+
+  const onChange: CityTransferProps['onChange'] = (nextTargetKeys) => {
+    setTargetKeys(nextTargetKeys);
+    //DO SAVE ACTION HERE
+    var content = setThriving(nextTargetKeys);
+    dataHandler.updateData(content, "thrivingData");
+  };
+
+  const handleClick = () => {
+    setTargetKeys([]);
+    var content = setThriving([]);
+    dataHandler.updateData(content, "thrivingData");
+  };
+
+  return (
+    <div>
+    <h2>Thriving Communities ➡️ Two Points
+        <Button
+          onClick={handleClick}
+          component="label"
+          variant="outlined"
+          startIcon={<DeleteForever />}
+          sx={{ marginLeft: "1rem", float: "right" }}
+        >
+          Clear Thriving Communities Data
         </Button> </h2>
     <Flex align="start" gap="middle" vertical>
       <CityTransfer
